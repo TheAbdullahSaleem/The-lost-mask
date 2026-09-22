@@ -5,14 +5,17 @@ Description: a minning game where you mine deep underneath collect minerals upgr
 // Must Have Stuff
 -Player
 -World
+-Pickaxe
+-Drill Machine
+-Dynamite
 -Crafting Table
 -Treasure
 -Mask
 -Dirt
 -Stone
+-Charcoal
 -Iron
--Gold
--Diamond
+-Progress Bar
 -Boss 1
 -Boss 2
 
