@@ -23,6 +23,8 @@ window/stretch/aspect="expand"
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 
+<<<<<<< HEAD
+=======
 [input]
 
 Right={
@@ -45,6 +47,7 @@ Jump={
 ]
 }
 
+>>>>>>> 1f510291aefcfc722add5e143c6234780ca451db
 [physics]
 
 3d/physics_engine="Jolt Physics"
