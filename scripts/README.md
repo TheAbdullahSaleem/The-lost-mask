@@ -11,8 +11,8 @@ Description: a minning game where you mine deep underneath collect minerals upgr
 -Crafting Table
 -Treasure
 -Mask
--Dirt
--Stone
+-Dirt (Done, added block design & Breaking Animations in assets/sprites/dirt)
+-Stone (Done, added block design & Breaking Animations in assets/sprites/stone)
 -Charcoal
 -Iron
 -Progress Bar
