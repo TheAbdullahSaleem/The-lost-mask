@@ -82,7 +82,7 @@ tile_set = SubResource("TileSet_h7o6m")
 position = Vector2(566, 46)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=92201443]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(3, 3)
 limit_left = 80
 limit_top = -380
 limit_right = 1140
@@ -101,11 +101,15 @@ scale = Vector2(5, 5)
 tile_map_data = PackedByteArray("AAAFAPf/AAAAAAAAAAAHAPf/AAAAAAIAAAAJAPj/AAAAAAAAAAAKAPf/AAABAAEAAAAGAPj/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_qbaj4")
 
-[node name="CraftingTable" parent="." unique_id=935220178 instance=ExtResource("8_j2gmx")]
+[node name="crafting table" type="Node" parent="." unique_id=676931890]
+
+[node name="CraftingTable" parent="crafting table" unique_id=935220178 instance=ExtResource("8_j2gmx")]
+z_index = -1
 position = Vector2(507, 56)
 scale = Vector2(0.5, 0.5)
 
-[node name="craft banner" type="Sprite2D" parent="." unique_id=1448271693]
+[node name="craft banner" type="Sprite2D" parent="crafting table" unique_id=1448271693]
+z_index = -1
 position = Vector2(507, 36)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_1yooq")
