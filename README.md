@@ -3,18 +3,18 @@
 Description: a minning game where you mine deep underneath collect minerals upgrade your pickaxe defeat enemies fint the lost mask and unlock the tresure.
 
 // Must Have Stuff
--Player
--World
+-Player (Done)
+-World (Done)
 -Pickaxe
 -Drill Machine
 -Dynamite
 -Crafting Table
 -Treasure
 -Mask
--Dirt
--Stone
--Charcoal
--Iron
+-Dirt (Done)
+-Stone (Done)
+-Charcoal (Done)
+-Iron (Done)
 -Progress Bar
 -Boss 1
 -Boss 2

@@ -1,23 +1,68 @@
 extends CharacterBody2D
 
+@export_category("Movement")
+@export var move_speed: float = 200.0
+@export var acceleration: float = 1400.0
+@export var friction: float = 1800.0
+@export var jump_velocity: float = -280.0
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+func _ready() -> void:
+	animated_sprite.play("idle")
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	apply_gravity(delta)
+	handle_jump()
+	handle_movement(delta)
+	update_animation()
+	
+	move_and_slide()
+
+
+func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("Left", "Right")
-	if direction:
-		velocity.x = direction * SPEED
+func handle_jump() -> void:
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = jump_velocity
+		
+	if Input.is_action_just_released("jump") and velocity.y < 0:
+			velocity.y *= 0.5
+
+
+func handle_movement(delta: float) -> void:
+	# 1. New presses always steal priority
+	var direction = Input.get_axis("left", "right")
+
+	# 3. Apply the physics using our custom active_direction
+	if direction != 0:
+		velocity.x = move_toward(
+			velocity.x,
+			direction * move_speed,
+			acceleration * delta
+		)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(
+			velocity.x,
+			0.0,
+			friction * delta
+		)
+
+
+func update_animation() -> void:
+	if abs(velocity.x) > 10.0:
+		if velocity.x < 0:
+			play_animation("left")
+		else:
+			play_animation("right")
+	else:
+		play_animation("idle")
+
+
+func play_animation(animation_name: String) -> void:
+	if animated_sprite.animation != animation_name:
+		animated_sprite.play(animation_name)
