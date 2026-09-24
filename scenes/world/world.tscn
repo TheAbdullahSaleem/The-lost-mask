@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/player.tscn" id="5_v5dby"]
 [ext_resource type="Texture2D" uid="uid://dwhi6o5kuq57r" path="res://assets/sprites/sky/sky.png" id="6_t5ptc"]
 [ext_resource type="Texture2D" uid="uid://mpn7nnlxnf3d" path="res://assets/sprites/sky/clouds.png" id="7_bq33v"]
+[ext_resource type="PackedScene" uid="uid://bcymh5pa56215" path="res://scenes/crafting_table.tscn" id="8_j2gmx"]
+[ext_resource type="Texture2D" uid="uid://d13misresrvvl" path="res://assets/sprites/Tables/crafting_table_board.png" id="9_1yooq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2gmx"]
 texture = ExtResource("1_6m72w")
@@ -98,3 +100,12 @@ position = Vector2(-656, 1112.0001)
 scale = Vector2(5, 5)
 tile_map_data = PackedByteArray("AAAFAPf/AAAAAAAAAAAHAPf/AAAAAAIAAAAJAPj/AAAAAAAAAAAKAPf/AAABAAEAAAAGAPj/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_qbaj4")
+
+[node name="CraftingTable" parent="." unique_id=935220178 instance=ExtResource("8_j2gmx")]
+position = Vector2(507, 56)
+scale = Vector2(0.5, 0.5)
+
+[node name="craft banner" type="Sprite2D" parent="." unique_id=1448271693]
+position = Vector2(507, 36)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_1yooq")

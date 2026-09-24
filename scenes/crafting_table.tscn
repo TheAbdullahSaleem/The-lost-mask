@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bcymh5pa56215"]
+
+[ext_resource type="Texture2D" uid="uid://b2p3d645mkcdq" path="res://assets/sprites/Tables/crafting table.png" id="1_87o7u"]
+
+[node name="CraftingTable" type="Node2D" unique_id=935220178]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=496903148]
+texture = ExtResource("1_87o7u")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1918584087]

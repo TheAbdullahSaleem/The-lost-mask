@@ -1,5 +1,5 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1790244355
+::res://::1790248824
 README.md::TextFile::-1::1790244355::0::1::::<><><>0<>0<><>::
 ::res://addons/::1790187781
 ::res://addons/godot_super-wakatime/::1790187781
@@ -12,7 +12,7 @@ utils.gd::GDScript::5251015809120159908::1790187781::0::1::::<>RefCounted<><>0<>
 ::res://assets/::1790192115
 icon.svg::CompressedTexture2D::3511055244587177872::1790191040::1790191212::1::::<><><>0<>0<>6b55b5a4fd5fa5b71bea7fb1e8f4a703<>res://.godot/imported/icon.svg-56083ea2a1f1a4f1e49773bdc6d7826c.ctex::
 README.md::TextFile::-1::1790192115::0::1::::<><><>0<>0<><>::
-::res://assets/sprites/::1790247582
+::res://assets/sprites/::1790250667
 README.md::TextFile::-1::1790105087::0::1::::<><><>0<>0<><>::
 ::res://assets/sprites/charcoal/::1790191608
 charcoal.png::CompressedTexture2D::5871970023026001745::1790191376::1790191608::1::::<><><>0<>0<>7bbaab619635acea0c65ee2039edc3d9<>res://.godot/imported/charcoal.png-0a15f88f70f9d0d6bf28fdce59058a4d.ctex::
@@ -32,7 +32,7 @@ iron_break_down.png::CompressedTexture2D::2421901155820015268::1790191831::17901
 iron_break_left.png::CompressedTexture2D::333770857979926922::1790191899::1790191927::1::::<><><>0<>0<>99a55442adc3bfc2d10154a29580c2f9<>res://.godot/imported/iron_break_left.png-b78ebc9a40eaf7199cacc32aec8f24dd.ctex::
 iron_break_right.png::CompressedTexture2D::6693836050861767698::1790191863::1790191927::1::::<><><>0<>0<>4353ebef9cfef065194525a07b0f08d3<>res://.godot/imported/iron_break_right.png-6479142fef6a440dd07f1af3a5b0f6ce.ctex::
 iron_break_up.png::CompressedTexture2D::3816893415300295778::1790191881::1790191927::1::::<><><>0<>0<>5f6d0c071cd38dfe4d252db3baa021c3<>res://.godot/imported/iron_break_up.png-e2a5c2ba9a6cdd9853be4200fbdedf0d.ctex::
-::res://assets/sprites/player/::1790247687
+::res://assets/sprites/player/::1790247699
 character.png::CompressedTexture2D::5462720031103994024::1790247030::1790247699::1::::<><><>0<>0<>7c83f99e41512a1d6f14b95ffd799621<>res://.godot/imported/character.png-80e42e1fcfa4178e122c4670683c0e4c.ctex::
 character_falling.png::CompressedTexture2D::1779294526587290702::1790247369::1790247699::1::::<><><>0<>0<>639e5ad0a994e85b12de93b48e7c5302<>res://.godot/imported/character_falling.png-1b4ee9d1a827285f2c915213e60b5166.ctex::
 character_jump.png::CompressedTexture2D::982580654717609892::1790247369::1790247699::1::::<><><>0<>0<>66f5ada75effa45ee430bfe0eae0b57c<>res://.godot/imported/character_jump.png-3e57889462012b785b5d7d4fa08ac23d.ctex::
@@ -47,6 +47,9 @@ stone_break_down.png::CompressedTexture2D::2352350072772948302::1790188398::1790
 stone_break_left.png::CompressedTexture2D::4503639426480599118::1790190822::1790190864::1::::<><><>0<>0<>7d523ea0834054696b7d8af1d2aa2a6c<>res://.godot/imported/stone_break_left.png-6e9352729a293c095918234ecbf03c64.ctex::
 stone_break_right.png::CompressedTexture2D::8767912524284526965::1790190773::1790190864::1::::<><><>0<>0<>f85fde10bb651cc86e8c15a3793310a4<>res://.godot/imported/stone_break_right.png-7f6126de556b1db0649a91caf0fa3595.ctex::
 stone_break_up.png::CompressedTexture2D::2852103683486412089::1790190800::1790190864::1::::<><><>0<>0<>58fcd5481ec714ff181393f36095bca1<>res://.godot/imported/stone_break_up.png-3c2e0ccd6336f2361eead16bee058973.ctex::
+::res://assets/sprites/Tables/::1790250668
+crafting table.png::CompressedTexture2D::4314192235812724494::1790250134::1790250671::1::::<><><>0<>0<>a1cf8009670bc46ad5a1b8e5946d3754<>res://.godot/imported/crafting table.png-5105278bcb1702d43defabf5f597648d.ctex::
+crafting_table_board.png::CompressedTexture2D::9042718424934722193::1790250634::1790250671::1::::<><><>0<>0<>e6783223603bd18588067dfd0b982730<>res://.godot/imported/crafting_table_board.png-82b92f24e46fd9b310cbe5229305bcb6.ctex::
 ::res://assets/tiles/::1790186659
 README.md::TextFile::-1::1790105087::0::1::::<><><>0<>0<><>::
 ::res://scenes/::1790242557
@@ -58,15 +61,15 @@ iron.tscn::PackedScene::315691879385411042::1790244554::0::1::::<><><>0<>0<><>::
 stone.tscn::PackedScene::4949556631595742709::1790243275::0::1::::<><><>0<>0<><>::uid://cqtjels4rqoc2::::res://assets/sprites/stone/stone.png<>uid://8rq4kqw58q4m::::res://assets/sprites/stone/stone_break_down.png<>uid://b5fujvtl0xnja::::res://assets/sprites/stone/stone_break_left.png<>uid://dw6iido3wj1c8::::res://assets/sprites/stone/stone_break_right.png<>uid://bgvty4aa2i2gr::::res://assets/sprites/stone/stone_break_up.png
 ::res://scenes/Enemy/::1790242557
 enemy.tscn::PackedScene::354239545823810405::1790242557::0::1::::<><><>0<>0<><>::uid://cejnnvfkiaaph::::res://scripts/Enemy/enemy.gd<>uid://bqa1tjlx586am::::res://assets/icon.svg
-::res://scenes/Player/::1790191040
-player.tscn::PackedScene::6084120185496633912::1790191040::0::1::::<><><>0<>0<><>::uid://d080t3e42bsal::::res://scripts/Player/Player.gd<>uid://bqa1tjlx586am::::res://assets/icon.svg
-::res://scenes/world/::1790245670
+::res://scenes/Player/::1790249134
+player.tscn::PackedScene::6084120185496633912::1790249134::0::1::::<><><>0<>0<><>::uid://d080t3e42bsal::::res://scripts/Player/Player.gd<>uid://cj3gg3eg2ceay::::res://assets/sprites/player/character.png<>uid://cynty4p36lbp5::::res://assets/sprites/player/character_left.png<>uid://bus5wklhl1kx0::::res://assets/sprites/player/character_right.png
+::res://scenes/world/::1790249239
 README.md::TextFile::-1::1790105087::0::1::::<><><>0<>0<><>::
-world.tscn::PackedScene::2630546597843812568::1790245670::0::1::::<><><>0<>0<><>::uid://djck6gnpu8mdw::::res://assets/sprites/dirt/dirt.png<>uid://cpwoqutbljmnp::::res://assets/sprites/charcoal/charcoal.png<>uid://p84un4sqefjj::::res://assets/sprites/iron/iron.png<>uid://cqtjels4rqoc2::::res://assets/sprites/stone/stone.png<>uid://csxgtntb58uxs::::res://scenes/Player/player.tscn<>uid://dwhi6o5kuq57r::::res://assets/sprites/sky/sky.png<>uid://mpn7nnlxnf3d::::res://assets/sprites/sky/clouds.png
-::res://scripts/::1790245671
-larping.gd::GDScript::3131175930493200212::1790245671::0::1::::<>Node<><>0<>0<><>::
+world.tscn::PackedScene::2630546597843812568::1790249239::0::1::::<><><>0<>0<><>::uid://djck6gnpu8mdw::::res://assets/sprites/dirt/dirt.png<>uid://cpwoqutbljmnp::::res://assets/sprites/charcoal/charcoal.png<>uid://p84un4sqefjj::::res://assets/sprites/iron/iron.png<>uid://cqtjels4rqoc2::::res://assets/sprites/stone/stone.png<>uid://csxgtntb58uxs::::res://scenes/Player/player.tscn<>uid://dwhi6o5kuq57r::::res://assets/sprites/sky/sky.png<>uid://mpn7nnlxnf3d::::res://assets/sprites/sky/clouds.png
+::res://scripts/::1790248871
+larping.gd::GDScript::3131175930493200212::1790248871::0::1::::<>Node<><>0<>0<><>::
 README.md::TextFile::-1::1790192711::0::1::::<><><>0<>0<><>::
 ::res://scripts/Enemy/::1790242557
 enemy.gd::GDScript::5072989789131017861::1790242557::0::1::::<>CharacterBody2D<><>0<>0<><>::
-::res://scripts/Player/::1790191040
-Player.gd::GDScript::8983660941004230187::1790191040::0::1::::<>CharacterBody2D<><>0<>0<><>::
+::res://scripts/Player/::1790249134
+Player.gd::GDScript::8983660941004230187::1790249134::0::1::::<>CharacterBody2D<><>0<>0<><>::
