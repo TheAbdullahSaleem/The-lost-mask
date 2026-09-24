@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cyy5f86b54y43"]
+
+[ext_resource type="Texture2D" uid="uid://b7h60k3famc83" path="res://assets/sprites/others/treasure_closed.png" id="1_m2qmq"]
+
+[node name="Tresure" type="Node2D" unique_id=2065825590]
+
+[node name="closed" type="Sprite2D" parent="." unique_id=1557233807]
+texture = ExtResource("1_m2qmq")
