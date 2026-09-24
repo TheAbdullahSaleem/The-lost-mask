@@ -8,7 +8,6 @@ extends CharacterBody2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-
 func _ready() -> void:
 	animated_sprite.play("idle")
 
@@ -18,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	handle_jump()
 	handle_movement(delta)
 	update_animation()
-
+	
 	move_and_slide()
 
 
@@ -30,11 +29,16 @@ func apply_gravity(delta: float) -> void:
 func handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
+		
+	if Input.is_action_just_released("jump") and velocity.y < 0:
+			velocity.y *= 0.5
 
 
 func handle_movement(delta: float) -> void:
-	var direction := Input.get_axis("left", "right")
+	# 1. New presses always steal priority
+	var direction = Input.get_axis("left", "right")
 
+	# 3. Apply the physics using our custom active_direction
 	if direction != 0:
 		velocity.x = move_toward(
 			velocity.x,

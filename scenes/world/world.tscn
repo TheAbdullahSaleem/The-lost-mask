@@ -80,6 +80,7 @@ tile_set = SubResource("TileSet_h7o6m")
 
 [node name="Player" parent="." unique_id=2097258461 instance=ExtResource("5_v5dby")]
 position = Vector2(566, 46)
+acceleration = 2000.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=92201443]
 zoom = Vector2(3, 3)
