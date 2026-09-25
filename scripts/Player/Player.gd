@@ -26,7 +26,6 @@ func _ready() -> void:
 	if progress_bar:
 		progress_bar.visible = false
 
-
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	handle_jump()
@@ -50,7 +49,12 @@ func handle_jump() -> void:
 
 
 func handle_movement(delta: float) -> void:
+<<<<<<< HEAD
 	var direction: float = Input.get_axis("left", "right")
+=======
+	var direction = Input.get_axis("left", "right")
+
+>>>>>>> bc4cd695ba96372a703d15dce43cc7242aebb784
 	if direction != 0:
 		velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 	else:
@@ -127,13 +131,22 @@ func handle_mining(delta: float) -> void:
 
 
 func update_animation() -> void:
-	if abs(velocity.x) > 10.0:
-		if velocity.x < 0:
-			play_animation("left")
+	# 1. Check airborne state first (highest priority)
+	if not is_on_floor():
+		if velocity.y < 0:
+			play_animation("Jump")     # Going up (Note: Capital 'J' to match your naming)
 		else:
-			play_animation("right")
+			play_animation("falling")  # Going down
+	
+	# 2. Ground state
 	else:
-		play_animation("idle")
+		if abs(velocity.x) > 10.0:
+			if velocity.x < 0:
+				play_animation("left")
+			else:
+				play_animation("right")
+		else:
+			play_animation("idle")
 
 
 func play_animation(animation_name: String) -> void:
