@@ -11,7 +11,6 @@ extends CharacterBody2D
 func _ready() -> void:
 	animated_sprite.play("idle")
 
-
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	handle_jump()
@@ -31,14 +30,12 @@ func handle_jump() -> void:
 		velocity.y = jump_velocity
 		
 	if Input.is_action_just_released("jump") and velocity.y < 0:
-			velocity.y *= 0.5
+		velocity.y *= 0.5
 
 
 func handle_movement(delta: float) -> void:
-	# 1. New presses always steal priority
 	var direction = Input.get_axis("left", "right")
 
-	# 3. Apply the physics using our custom active_direction
 	if direction != 0:
 		velocity.x = move_toward(
 			velocity.x,
@@ -54,13 +51,22 @@ func handle_movement(delta: float) -> void:
 
 
 func update_animation() -> void:
-	if abs(velocity.x) > 10.0:
-		if velocity.x < 0:
-			play_animation("left")
+	# 1. Check airborne state first (highest priority)
+	if not is_on_floor():
+		if velocity.y < 0:
+			play_animation("Jump")     # Going up (Note: Capital 'J' to match your naming)
 		else:
-			play_animation("right")
+			play_animation("falling")  # Going down
+	
+	# 2. Ground state
 	else:
-		play_animation("idle")
+		if abs(velocity.x) > 10.0:
+			if velocity.x < 0:
+				play_animation("left")
+			else:
+				play_animation("right")
+		else:
+			play_animation("idle")
 
 
 func play_animation(animation_name: String) -> void:
