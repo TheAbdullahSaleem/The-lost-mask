@@ -11,7 +11,7 @@ extends CharacterBody2D
 @export var mine_reach: float = 2.5
 @export var orbit_radius: float = 28.0
 
-@onready var animated_sprite: AnimatedSprite2D = $sprites
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var pickaxe: Node2D = $PickaxeIndicator
 @onready var progress_bar: AnimatedSprite2D = get_node_or_null("MineProgress") as AnimatedSprite2D
 
@@ -49,12 +49,8 @@ func handle_jump() -> void:
 
 
 func handle_movement(delta: float) -> void:
-<<<<<<< HEAD
 	var direction: float = Input.get_axis("left", "right")
-=======
-	var direction = Input.get_axis("left", "right")
 
->>>>>>> bc4cd695ba96372a703d15dce43cc7242aebb784
 	if direction != 0:
 		velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 	else:
