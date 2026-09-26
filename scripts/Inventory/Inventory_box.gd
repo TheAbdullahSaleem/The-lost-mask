@@ -13,6 +13,7 @@ func _process(delta: float) -> void:
 	pass
 func display_item(texture: Texture2D,amount:int):
 	while item_icon == null or item_count == null:
+		print("Waiting")
 		await get_tree().process_frame
 	if amount<= 0 :
 		item_icon.texture = null
