@@ -15,8 +15,9 @@ var inventory_material: Dictionary = {
 	"charcoal": preload("res://assets/sprites/charcoal/charcoal.png"),
 	"iron": preload("res://assets/sprites/iron/iron.png"),
 	"diamond": preload("res://assets/sprites/others/pickaxe.png"),   # placeholder until diamond sprite made
-	"dynamite": preload("res://assets/sprites/charcoal/charcoal.png"), # placeholder until dynamite sprite made
+	"dynamite": preload("res://assets/sprites/others/dynamite.png"),
 	"pickaxe": preload("res://assets/sprites/others/pickaxe.png"),
+
 }
 
 var item_slot_mapping: Dictionary = {
@@ -29,12 +30,20 @@ var item_slot_mapping: Dictionary = {
 }
 
 const inventory_scene = preload("res://scenes/Inventory/canvas_layer.tscn")
+const tutorial_scene = preload("res://scenes/UI/tutorial_ui.tscn")
 
-# ── Mining ────────────────────────────────────────────────────────────────────
+# ── Mining & Placing ─────────────────────────────────────────────────────────
 @onready var blocks: TileMapLayer = $blocks
 
-# Source 0=dirt, 1=charcoal, 2=iron, 3=stone (NOT mineable), 4=grass→drops dirt
+# Source 0=dirt, 1=charcoal, 2=iron, 3=stone (NOT mineable), 4=grass→drops dirt, 5=diamond(assumption)
 const STONE_SOURCE_ID := 3
+
+const PLACEABLE_BLOCKS: Dictionary = {
+	"dirt": 0,
+	"charcoal": 1,
+	"iron": 2,
+	"diamond": 5, # adjust if diamond source_id differs
+}
 
 const BLOCK_SCENES: Dictionary = {
 	0: "res://scenes/blocks/dirt.tscn",
@@ -56,6 +65,7 @@ const BLOCK_DROP: Dictionary = {
 	1: "charcoal",
 	2: "iron",
 	4: "dirt",   # grass drops dirt
+	5: "diamond",
 }
 
 var _active_tiles: Dictionary = {}
@@ -64,6 +74,42 @@ var _active_tiles: Dictionary = {}
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
 	spawn_inventory()
+	
+	# Spawn tutorial broadcast UI
+	var tutorial_instance = tutorial_scene.instantiate()
+	add_child(tutorial_instance)
+
+# ── Placing API ───────────────────────────────────────────────────────────────
+func place_block(mouse_global_pos: Vector2) -> void:
+	var inv_ui = get_tree().get_first_node_in_group("inventory_ui")
+	if not inv_ui:
+		return
+		
+	var active_slot = inv_ui.active_slot_index
+	var selected_item_name = ""
+	
+	# Find which item corresponds to this slot
+	for item_name in item_slot_mapping.keys():
+		if item_slot_mapping[item_name] == active_slot:
+			selected_item_name = item_name
+			break
+			
+	if selected_item_name == "" or not PLACEABLE_BLOCKS.has(selected_item_name):
+		return # Item not placeable or not found
+		
+	# Check if player has the item
+	if inventory.get(selected_item_name, 0) <= 0:
+		return
+		
+	# Convert global pos to map coords
+	var tile_coords = blocks.local_to_map(blocks.to_local(mouse_global_pos))
+	
+	# Check if cell is empty
+	if blocks.get_cell_source_id(tile_coords) == -1:
+		# Place block
+		blocks.set_cell(tile_coords, PLACEABLE_BLOCKS[selected_item_name], Vector2i(0, 0))
+		# Deduct from inventory
+		change_inventory_item(selected_item_name, -1)
 
 
 # ── Mining API ────────────────────────────────────────────────────────────────
@@ -95,15 +141,16 @@ func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 		add_child(block_instance)
 		block_instance.global_position = blocks.to_global(blocks.map_to_local(tile_coords))
 
-		var sprite: AnimatedSprite2D = block_instance.get_node("sprite")
-		var anim_prefix: String = BREAK_ANIM_PREFIX.get(source_id, "dirt")
-		var anim_name: String = anim_prefix + "_break_" + direction
+		var sprite: AnimatedSprite2D = block_instance.get_node_or_null("sprite")
+		if sprite:
+			var anim_prefix: String = BREAK_ANIM_PREFIX.get(source_id, "dirt")
+			var anim_name: String = anim_prefix + "_break_" + direction
 
-		if not sprite.sprite_frames.has_animation(anim_name):
-			anim_name = anim_prefix + "_break_down"
+			if not sprite.sprite_frames.has_animation(anim_name):
+				anim_name = anim_prefix + "_break_down"
 
-		sprite.play(anim_name)
-		await sprite.animation_looped
+			sprite.play(anim_name)
+			await sprite.animation_looped
 		block_instance.queue_free()
 
 	_active_tiles.erase(tile_coords)
@@ -127,3 +174,7 @@ func change_inventory_item(block_name: String, quantity: int) -> void:
 func spawn_inventory() -> void:
 	var inv_instance = inventory_scene.instantiate()
 	add_child(inv_instance)
+	
+	# Set the initial equipped tool icon
+	if inventory_material.has("pickaxe"):
+		get_tree().call_group("inventory_ui", "update_equipped_tool", inventory_material["pickaxe"])

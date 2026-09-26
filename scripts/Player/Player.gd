@@ -19,12 +19,28 @@ var _mine_timer: float = 0.0
 var _mine_direction: String = "down"
 var _current_mine_tile: Vector2i = Vector2i(-9999, -9999)
 var _target_tile: Vector2i = Vector2i(-9999, -9999)
+var spawn_position: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	spawn_position = global_position
 	animated_sprite.play("idle")
 	if progress_bar:
 		progress_bar.visible = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("teleport"):
+		global_position = spawn_position
+		velocity = Vector2.ZERO
+	elif event.is_action_pressed("place"):
+		var world = get_parent()
+		if world and world.has_method("place_block"):
+			var blocks_node: TileMapLayer = world.get_node_or_null("blocks")
+			if blocks_node:
+				var tile: Vector2i = blocks_node.local_to_map(blocks_node.to_local(get_global_mouse_position()))
+				var player_tile: Vector2i = blocks_node.local_to_map(blocks_node.to_local(global_position))
+				if Vector2(tile).distance_to(Vector2(player_tile)) <= mine_reach:
+					world.place_block(get_global_mouse_position())
 
 
 func _physics_process(delta: float) -> void:

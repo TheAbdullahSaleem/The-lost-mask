@@ -8,7 +8,7 @@ const RECIPES: Array[Dictionary] = [
 	{
 		"id": "iron_pickaxe",
 		"name": "Iron Pickaxe",
-		"icon": "res://assets/sprites/others/pickaxe.png",
+		"icon": "res://assets/sprites/others/iron_pickaxe.png",
 		"cost": {"iron": 3, "dirt": 24},
 		"result_type": "pickaxe_upgrade",
 		"result_value": 0.3,
@@ -18,7 +18,7 @@ const RECIPES: Array[Dictionary] = [
 	{
 		"id": "diamond_pickaxe",
 		"name": "Diamond Pickaxe",
-		"icon": "res://assets/sprites/others/pickaxe.png",
+		"icon": "res://assets/sprites/others/diamond_pickaxe.png",
 		"cost": {"diamond": 3, "dirt": 48},
 		"result_type": "pickaxe_upgrade",
 		"result_value": 0.15,
@@ -28,8 +28,8 @@ const RECIPES: Array[Dictionary] = [
 	{
 		"id": "dynamite",
 		"name": "Dynamite",
-		"icon": "res://assets/sprites/charcoal/charcoal.png",
-		"cost": {"charcoal": 1, "diamond": 1},
+		"icon": "res://assets/sprites/others/dynamite.png",
+		"cost": {"charcoal": 9, "diamond": 1},
 		"result_type": "give_item",
 		"result_value": "dynamite",
 		"desc_line1": "Instantly destroys",
@@ -101,22 +101,23 @@ func _select(index: int) -> void:
 	var h1: int = world.inventory.get(k1, 0) if world else 0
 
 	req1.text = "• %d  %s" % [n0, k0.capitalize()]
-	have1.text = "(%d / %d)" % [h0, n0]
-	have1.modulate = Color(0.3, 1.0, 0.3, 1) if h0 >= n0 else Color(1.0, 0.3, 0.3, 1)
+	have1.text = "%d / %d" % [h0, n0]
+	have1.modulate = Color(0.18, 0.58, 0.22, 1) if h0 >= n0 else Color(0.80, 0.15, 0.15, 1)
 
 	if k1 != "":
 		req2.text = "• %d  %s" % [n1, k1.capitalize()]
-		have2.text = "(%d / %d)" % [h1, n1]
-		have2.modulate = Color(0.3, 1.0, 0.3, 1) if h1 >= n1 else Color(1.0, 0.3, 0.3, 1)
+		have2.text = "%d / %d" % [h1, n1]
+		have2.modulate = Color(0.18, 0.58, 0.22, 1) if h1 >= n1 else Color(0.80, 0.15, 0.15, 1)
 		req2.visible = true
 		have2.visible = true
 	else:
 		req2.text = ""
 		have2.text = ""
 
-	# Highlight active recipe button (golden border tint)
+	# Toggle button states for styling
 	for i in range(_recipe_buttons.size()):
-		_recipe_buttons[i].modulate = Color(1.0, 0.85, 0.3, 1) if i == index else Color(1, 1, 1, 1)
+		_recipe_buttons[i].toggle_mode = true
+		_recipe_buttons[i].button_pressed = (i == index)
 
 	# Enable/disable craft button
 	var can_craft: bool = _can_afford(recipe["cost"])
@@ -148,12 +149,18 @@ func _on_craft_pressed() -> void:
 			var player = world.get_node_or_null("Player2")
 			if player:
 				player.mine_time = recipe["result_value"]
+			
+			# Swap the pickaxe inventory icon
+			world.inventory_material["pickaxe"] = load(recipe["icon"])
+			world.change_inventory_item("pickaxe", 0) # triggers UI refresh
+			get_tree().call_group("inventory_ui", "update_equipped_tool", world.inventory_material["pickaxe"])
+			
 			feedback_label.text = "✓ %s crafted!" % recipe["name"]
-			feedback_label.modulate = Color(0.3, 1.0, 0.3, 1)
+			feedback_label.modulate = Color(0.18, 0.58, 0.22, 1)
 		"give_item":
 			world.change_inventory_item(recipe["result_value"], 1)
 			feedback_label.text = "✓ %s added to inventory!" % recipe["name"]
-			feedback_label.modulate = Color(0.3, 1.0, 0.3, 1)
+			feedback_label.modulate = Color(0.18, 0.58, 0.22, 1)
 
 	# Refresh UI to show updated counts
 	_select(_selected)

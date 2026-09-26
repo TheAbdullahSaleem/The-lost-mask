@@ -186,3 +186,48 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 vertical_alignment = 2
+
+[node name="ToolIndicatorContainer" type="MarginContainer" parent="." unique_id=532890124]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="Panel" type="Panel" parent="ToolIndicatorContainer" unique_id=891042381]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+
+[node name="ToolImage" type="TextureRect" parent="ToolIndicatorContainer/Panel" unique_id=113042589]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EquippedLabel" type="Label" parent="ToolIndicatorContainer/Panel" unique_id=741029314]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = 4.0
+offset_right = 40.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Equipped"
+horizontal_alignment = 1

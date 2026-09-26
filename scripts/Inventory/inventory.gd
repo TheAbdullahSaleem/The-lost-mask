@@ -36,3 +36,8 @@ func update_slot_ui(slot_index: int, texture: Texture2D, amount: int) -> void:
 	var slots = inventorybox.get_children()
 	if slot_index >= 0 and slot_index < slots.size():
 		slots[slot_index].display_item(texture, amount)
+
+func update_equipped_tool(texture: Texture2D) -> void:
+	var tool_image = get_node_or_null("ToolIndicatorContainer/Panel/ToolImage")
+	if tool_image:
+		tool_image.texture = texture
