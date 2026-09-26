@@ -92,6 +92,7 @@ size = Vector2(61.666656, 63.888893)
 script = ExtResource("1_mxkvs")
 
 [node name="Player2" parent="." unique_id=963505063 instance=ExtResource("1_umvgx")]
+z_index = 20
 position = Vector2(434, 48)
 
 [node name="Camera2D" type="Camera2D" parent="Player2" unique_id=2039750525]
