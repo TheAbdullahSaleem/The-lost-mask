@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://d13misresrvvl" path="res://assets/sprites/Tables/crafting_table_board.png" id="9_1yooq"]
 [ext_resource type="PackedScene" uid="uid://cyy5f86b54y43" path="res://scenes/world/tresure_closed.tscn" id="12_dlabj"]
 [ext_resource type="Texture2D" uid="uid://c82khjdbxo7cs" path="res://assets/sprites/others/cage.png" id="12_srmg5"]
+[ext_resource type="Texture2D" uid="uid://b54iqu165neo2" path="res://assets/sprites/others/New Piskel.png" id="15_mxkvs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2gmx"]
 texture = ExtResource("1_6m72w")
@@ -95,6 +96,10 @@ position = Vector2(434, 48)
 
 [node name="Camera2D" type="Camera2D" parent="Player2" unique_id=2039750525]
 zoom = Vector2(2.8, 2.8)
+limit_left = 100
+limit_top = -350
+limit_right = 1110
+limit_bottom = 1600
 position_smoothing_enabled = true
 
 [node name="blocks" type="TileMapLayer" parent="." unique_id=776222821]
@@ -160,3 +165,8 @@ shape = SubResource("RectangleShape2D_h7o6m")
 [node name="Tresure" parent="." unique_id=2065825590 instance=ExtResource("12_dlabj")]
 z_index = -1
 position = Vector2(905, 32)
+
+[node name="NewPiskel" type="Sprite2D" parent="." unique_id=945888419]
+z_index = -1
+position = Vector2(256, -11)
+texture = ExtResource("15_mxkvs")

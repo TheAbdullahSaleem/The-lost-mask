@@ -1,8 +1,8 @@
 extends Node2D
 
-@export var inventory: Dictionary = {
+# ── Inventory Data ────────────────────────────────────────────────────────────
+var inventory: Dictionary = {
 	"dirt": 0,
-	"stone": 0,
 	"charcoal": 0,
 	"iron": 0,
 	"pickaxe": 1,
@@ -10,30 +10,31 @@ extends Node2D
 
 var inventory_material: Dictionary = {
 	"dirt": preload("res://assets/sprites/dirt/dirt.png"),
-	"stone": preload("res://assets/sprites/stone/stone.png"),
 	"charcoal": preload("res://assets/sprites/charcoal/charcoal.png"),
 	"iron": preload("res://assets/sprites/iron/iron.png"),
 	"pickaxe": preload("res://assets/sprites/others/pickaxe.png"),
 }
 
-# A dictionary mapping item keys to slot positions (0 to 5)
 var item_slot_mapping: Dictionary = {
 	"dirt": 0,
-	"stone": 1,
-	"charcoal": 2,
-	"iron": 3,
-	"pickaxe": 4
+	"charcoal": 1,
+	"iron": 2,
+	"pickaxe": 3,
 }
 
 const inventory_scene = preload("res://scenes/Inventory/canvas_layer.tscn")
+
+# ── Mining ────────────────────────────────────────────────────────────────────
 @onready var blocks: TileMapLayer = $blocks
 
+# Source 0=dirt, 1=charcoal, 2=iron, 3=stone (NOT mineable), 4=grass→drops dirt
 const STONE_SOURCE_ID := 3
+
 const BLOCK_SCENES: Dictionary = {
 	0: "res://scenes/blocks/dirt.tscn",
 	1: "res://scenes/blocks/charcoal.tscn",
-	2: "res://scenes/blocks/stone.tscn",
-	4: "res://scenes/blocks/dirt.tscn",
+	2: "res://scenes/blocks/stone.tscn",   # iron uses stone break anim
+	4: "res://scenes/blocks/dirt.tscn",    # grass uses dirt break anim
 }
 
 const BREAK_ANIM_PREFIX: Dictionary = {
@@ -43,21 +44,29 @@ const BREAK_ANIM_PREFIX: Dictionary = {
 	4: "dirt",
 }
 
+# What item each source_id drops into inventory
+const BLOCK_DROP: Dictionary = {
+	0: "dirt",
+	1: "charcoal",
+	2: "iron",
+	4: "dirt",   # grass drops dirt
+}
+
 var _active_tiles: Dictionary = {}
 
-func _ready() -> void:
-	# Automatically spawn the UI layer onto the scene tree when the world starts
-	spawn_inventory()
-	
-	# Wait 5 seconds as requested, then add a test item
-	await get_tree().create_timer(5.0).timeout 
-	change_inventory_item("dirt", 1)
 
+# ── Lifecycle ─────────────────────────────────────────────────────────────────
+func _ready() -> void:
+	spawn_inventory()
+
+
+# ── Mining API ────────────────────────────────────────────────────────────────
 func is_mineable(tile_coords: Vector2i) -> bool:
 	var source_id: int = blocks.get_cell_source_id(tile_coords)
 	if source_id == -1 or source_id == STONE_SOURCE_ID:
 		return false
 	return true
+
 
 func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 	var source_id: int = blocks.get_cell_source_id(tile_coords)
@@ -65,8 +74,15 @@ func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 		return
 
 	_active_tiles[tile_coords] = true
+
+	# ── Erase block immediately ──────────────────────────────────────────────
 	blocks.erase_cell(tile_coords)
 
+	# ── Add item to inventory ────────────────────────────────────────────────
+	if BLOCK_DROP.has(source_id):
+		change_inventory_item(BLOCK_DROP[source_id], 1)
+
+	# ── Play break animation ─────────────────────────────────────────────────
 	if BLOCK_SCENES.has(source_id):
 		var block_scene: PackedScene = load(BLOCK_SCENES[source_id])
 		var block_instance: Node2D = block_scene.instantiate()
@@ -86,21 +102,22 @@ func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 
 	_active_tiles.erase(tile_coords)
 
+
+# ── Inventory API ─────────────────────────────────────────────────────────────
 func change_inventory_item(block_name: String, quantity: int) -> void:
 	block_name = block_name.to_lower()
-	if inventory.has(block_name):
-		inventory[block_name] += quantity
-		
-		# Locate the inventory slot matching this block type
-		if item_slot_mapping.has(block_name):
-			var slot_id = item_slot_mapping[block_name]
-			var texture = inventory_material[block_name]
-			var current_amount = inventory[block_name]
-			
-			# Fire a global group call to update the UI layer safely!
-			get_tree().call_group("inventory_ui", "update_slot_ui", slot_id, texture, current_amount)
+	if not inventory.has(block_name):
+		return
+
+	inventory[block_name] += quantity
+
+	if item_slot_mapping.has(block_name):
+		var slot_id: int = item_slot_mapping[block_name]
+		var texture: Texture2D = inventory_material[block_name]
+		var current_amount: int = inventory[block_name]
+		get_tree().call_group("inventory_ui", "update_slot_ui", slot_id, texture, current_amount)
+
 
 func spawn_inventory() -> void:
 	var inv_instance = inventory_scene.instantiate()
 	add_child(inv_instance)
-	print("Inventory UI canvas layer added successfully!")
