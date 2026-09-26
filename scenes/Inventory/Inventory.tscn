@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://pjt426ncjqyg" path="res://scripts/Inventory/inventory.gd" id="1_72bkj"]
 [ext_resource type="Script" uid="uid://d3bqy2wmhd02w" path="res://scripts/Inventory/Inventory_box.gd" id="2_o6nqn"]
+[ext_resource type="Texture2D" uid="uid://bmf734digrxyi" path="res://assets/sprites/others/pickaxe.png" id="3_lh20n"]
+[ext_resource type="Texture2D" uid="uid://djck6gnpu8mdw" path="res://assets/sprites/dirt/dirt.png" id="4_optds"]
+[ext_resource type="Texture2D" uid="uid://cqtjels4rqoc2" path="res://assets/sprites/stone/stone.png" id="5_om3m5"]
+[ext_resource type="Texture2D" uid="uid://cpwoqutbljmnp" path="res://assets/sprites/charcoal/charcoal.png" id="6_e1bgs"]
+[ext_resource type="Texture2D" uid="uid://p84un4sqefjj" path="res://assets/sprites/iron/iron.png" id="7_ctp1g"]
 
 [node name="Inventory" type="CanvasLayer" unique_id=459295037]
 script = ExtResource("1_72bkj")
@@ -16,24 +21,25 @@ offset_right = 237.0
 offset_bottom = 124.0
 grow_horizontal = 2
 
-[node name="inventorybox" type="HBoxContainer" parent="MarginContainer" unique_id=834138492]
+[node name="Inventory_box" type="HBoxContainer" parent="MarginContainer" unique_id=834138492]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/inventorybox" unique_id=1093692632]
+[node name="Pickaxe" type="Panel" parent="MarginContainer/Inventory_box" unique_id=1093692632]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("2_o6nqn")
 
-[node name="item_image" type="TextureRect" parent="MarginContainer/inventorybox/Panel" unique_id=1005592687]
+[node name="item_image" type="TextureRect" parent="MarginContainer/Inventory_box/Pickaxe" unique_id=1005592687]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_lh20n")
 stretch_mode = 5
 
-[node name="Item_count" type="Label" parent="MarginContainer/inventorybox/Panel" unique_id=1625672470]
+[node name="Item_count" type="Label" parent="MarginContainer/Inventory_box/Pickaxe" unique_id=1625672470]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -47,21 +53,22 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 vertical_alignment = 2
 
-[node name="Panel2" type="Panel" parent="MarginContainer/inventorybox" unique_id=875606827]
+[node name="Dirt" type="Panel" parent="MarginContainer/Inventory_box" unique_id=875606827]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("2_o6nqn")
 
-[node name="item_image" type="TextureRect" parent="MarginContainer/inventorybox/Panel2" unique_id=1363322076]
+[node name="item_image" type="TextureRect" parent="MarginContainer/Inventory_box/Dirt" unique_id=1363322076]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("4_optds")
 stretch_mode = 5
 
-[node name="Item_count" type="Label" parent="MarginContainer/inventorybox/Panel2" unique_id=1520901184]
+[node name="Item_count" type="Label" parent="MarginContainer/Inventory_box/Dirt" unique_id=1520901184]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -73,23 +80,25 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
 vertical_alignment = 2
 
-[node name="Panel3" type="Panel" parent="MarginContainer/inventorybox" unique_id=1496451653]
+[node name="Stone" type="Panel" parent="MarginContainer/Inventory_box" unique_id=1496451653]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("2_o6nqn")
 
-[node name="item_image" type="TextureRect" parent="MarginContainer/inventorybox/Panel3" unique_id=1225851058]
+[node name="item_image" type="TextureRect" parent="MarginContainer/Inventory_box/Stone" unique_id=1225851058]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("5_om3m5")
 stretch_mode = 5
 
-[node name="Item_count" type="Label" parent="MarginContainer/inventorybox/Panel3" unique_id=142231002]
+[node name="Item_count" type="Label" parent="MarginContainer/Inventory_box/Stone" unique_id=142231002]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -101,23 +110,25 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
 vertical_alignment = 2
 
-[node name="Panel4" type="Panel" parent="MarginContainer/inventorybox" unique_id=1444651698]
+[node name="Charcoal" type="Panel" parent="MarginContainer/Inventory_box" unique_id=1444651698]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("2_o6nqn")
 
-[node name="item_image" type="TextureRect" parent="MarginContainer/inventorybox/Panel4" unique_id=326118323]
+[node name="item_image" type="TextureRect" parent="MarginContainer/Inventory_box/Charcoal" unique_id=326118323]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("6_e1bgs")
 stretch_mode = 5
 
-[node name="Item_count" type="Label" parent="MarginContainer/inventorybox/Panel4" unique_id=1312729915]
+[node name="Item_count" type="Label" parent="MarginContainer/Inventory_box/Charcoal" unique_id=1312729915]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -129,23 +140,25 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
 vertical_alignment = 2
 
-[node name="Panel5" type="Panel" parent="MarginContainer/inventorybox" unique_id=1931944134]
+[node name="Iron" type="Panel" parent="MarginContainer/Inventory_box" unique_id=1931944134]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("2_o6nqn")
 
-[node name="item_image" type="TextureRect" parent="MarginContainer/inventorybox/Panel5" unique_id=1984165387]
+[node name="item_image" type="TextureRect" parent="MarginContainer/Inventory_box/Iron" unique_id=1984165387]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("7_ctp1g")
 stretch_mode = 5
 
-[node name="Item_count" type="Label" parent="MarginContainer/inventorybox/Panel5" unique_id=1405746474]
+[node name="Item_count" type="Label" parent="MarginContainer/Inventory_box/Iron" unique_id=1405746474]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -157,14 +170,15 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
 vertical_alignment = 2
 
-[node name="Panel6" type="Panel" parent="MarginContainer/inventorybox" unique_id=1219516771]
+[node name="Panel6" type="Panel" parent="MarginContainer/Inventory_box" unique_id=1219516771]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("2_o6nqn")
 
-[node name="item_image" type="TextureRect" parent="MarginContainer/inventorybox/Panel6" unique_id=596037891]
+[node name="item_image" type="TextureRect" parent="MarginContainer/Inventory_box/Panel6" unique_id=596037891]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -173,7 +187,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 5
 
-[node name="Item_count" type="Label" parent="MarginContainer/inventorybox/Panel6" unique_id=1272421489]
+[node name="Item_count" type="Label" parent="MarginContainer/Inventory_box/Panel6" unique_id=1272421489]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -185,4 +199,5 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
 vertical_alignment = 2

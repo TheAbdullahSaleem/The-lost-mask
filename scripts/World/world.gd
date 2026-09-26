@@ -1,15 +1,18 @@
 extends Node2D
-var dirt_amount : int = 0
-var dirt_texture : Texture2D = preload("res://assets/sprites/dirt/dirt.png")
-var stone_amount : int = 0
-var stone_texture : Texture2D = preload("res://assets/sprites/stone/stone.png")
-var charcoal_amount : int = 0
-var charcoal_texture : Texture2D = preload("res://assets/sprites/charcoal/charcoal.png")
-var iron_amount : int = 0
-var iron_texture : Texture2D = preload("res://assets/sprites/iron/iron.png")
-var pickaxe_amount : int = 1
-var pickaxe_texture : Texture2D = preload("res://assets/sprites/others/pickaxe.png")
-
+var inventory = {
+"dirt" : 0,
+"stone" : 0,
+"charcoal" : 0,
+"iron" : 0,
+"pickaxe" : 1,
+}
+var resources = {
+"dirt" : preload("res://assets/sprites/dirt/dirt.png"),
+"stone" : preload("res://assets/sprites/stone/stone.png"),
+"charcoal" : preload("res://assets/sprites/charcoal/charcoal.png"),
+"iron" : preload("res://assets/sprites/iron/iron.png"),
+"pickaxe" : preload("res://assets/sprites/others/pickaxe.png"),
+}
 @onready var blocks: TileMapLayer = $blocks
 
 const STONE_SOURCE_ID := 3
@@ -72,21 +75,13 @@ func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 		block_instance.queue_free()
 
 	_active_tiles.erase(tile_coords)
-func add_inventory_item(block_name):
-	block_name += 1
-	InventoryBox.display_item(dirt_texture,dirt_amount)
-	InventoryBox.display_item(stone_texture,stone_amount)
-	InventoryBox.display_item(iron_texture,iron_amount)
-	InventoryBox.display_item(charcoal_texture,charcoal_amount)
-	InventoryBox.display_item(pickaxe_texture,pickaxe_amount)
 
-func substract_inventory_items(number_of_item,item_name):
-	item_name -= number_of_item
-	InventoryBox.display_item(dirt_texture,dirt_amount)
-	InventoryBox.display_item(stone_texture,stone_amount)
-	InventoryBox.display_item(iron_texture,iron_amount)
-	InventoryBox.display_item(charcoal_texture,charcoal_amount)
-	InventoryBox.display_item(pickaxe_texture,pickaxe_amount)
-
+func inventory_update(name: String,quantity: int):
+	name = name.to_lower()
+	if inventory.has(name):
+		inventory[name] += quantity
+		InventoryBox.update_inventory(name,inventory[name])
+	else:
+		print("The item is unkown")
 func _ready() -> void:
-	pass
+	inventory_update("dirt",1)

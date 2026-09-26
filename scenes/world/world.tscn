@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://d13misresrvvl" path="res://assets/sprites/Tables/crafting_table_board.png" id="9_1yooq"]
 [ext_resource type="PackedScene" uid="uid://cyy5f86b54y43" path="res://scenes/world/tresure_closed.tscn" id="12_dlabj"]
 [ext_resource type="Texture2D" uid="uid://c82khjdbxo7cs" path="res://assets/sprites/others/cage.png" id="12_srmg5"]
-[ext_resource type="PackedScene" uid="uid://b1mei8wicl2d4" path="res://scenes/Inventory/canvas_layer.tscn" id="15_mxkvs"]
+[ext_resource type="PackedScene" uid="uid://b1mei8wicl2d4" path="res://scenes/Inventory/Inventory.tscn" id="15_mxkvs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2gmx"]
 texture = ExtResource("1_6m72w")
