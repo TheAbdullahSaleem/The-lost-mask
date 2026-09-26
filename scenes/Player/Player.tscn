@@ -5,7 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://n877vtasbcfk" path="res://assets/sprites/player/character_jump.png" id="2_socpp"]
 [ext_resource type="Texture2D" uid="uid://0l5yrmbs047s" path="res://assets/sprites/player/character_falling.png" id="3_fxc31"]
 [ext_resource type="Texture2D" uid="uid://cj3gg3eg2ceay" path="res://assets/sprites/player/character.png" id="4_puxyr"]
+[ext_resource type="Texture2D" uid="uid://bmf734digrxyi" path="res://assets/sprites/others/pickaxe.png" id="5_xcisb"]
 [ext_resource type="Texture2D" uid="uid://bus5wklhl1kx0" path="res://assets/sprites/player/character_right.png" id="6_mmokv"]
+[ext_resource type="Texture2D" uid="uid://dek5go0pg0ktw" path="res://assets/sprites/others/progress_bar_digging.png" id="6_socpp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2aixn"]
+atlas = ExtResource("3_fxc31")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miygw"]
+atlas = ExtResource("2_socpp")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xcisb"]
 atlas = ExtResource("2_bvqhm")
@@ -51,15 +61,7 @@ region = Rect2(0, 64, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_socpp")
-}],
-"loop": 1,
-"name": &"Jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_fxc31")
+"texture": SubResource("AtlasTexture_2aixn")
 }],
 "loop": 1,
 "name": &"falling",
@@ -71,6 +73,14 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miygw")
+}],
+"loop": 1,
+"name": &"jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -114,12 +124,72 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbts4"]
+atlas = ExtResource("6_socpp")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqefj"]
+atlas = ExtResource("6_socpp")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gcuk"]
+atlas = ExtResource("6_socpp")
+region = Rect2(0, 48, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afv41"]
+atlas = ExtResource("6_socpp")
+region = Rect2(64, 96, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nxk0"]
+atlas = ExtResource("6_socpp")
+region = Rect2(0, 144, 64, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7o6m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbts4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqefj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gcuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afv41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nxk0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_00we2"]
+radius = 5.0
+height = 24.0
+
 [node name="Player" type="CharacterBody2D" unique_id=632287275]
 script = ExtResource("1_ky53y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=404076364]
 sprite_frames = SubResource("SpriteFrames_y1q5r")
-animation = &"idle"
+animation = &"falling"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=267562917]
-polygon = PackedVector2Array(-9, -14, 3, -14, 3, -11, 5, -11, 5, -9, 10, -9, 10, -4, 7, -4, 7, -2, 7, 1, 5, 1, 5, 4, 4, 5, 5, 6, 5, 7, 6, 7, 6, 10, 5, 10, 5, 11, 4, 11, 4, 16, 0, 16, 0, 15, -2, 15, -2, 16, -6, 16, -6, 11, -7, 11, -7, 10, -8, 10, -8, 7, -7, 7, -7, 6, -6, 6, -6, 3, -7, 3, -7, 2, -8, 2, -8, -4, -10, -4, -10, -9, -9, -9)
+[node name="PickaxeIndicator" type="Node2D" parent="." unique_id=1754725537]
+
+[node name="Sprite2D" type="Sprite2D" parent="PickaxeIndicator" unique_id=188845877]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_xcisb")
+
+[node name="MineProgress" type="AnimatedSprite2D" parent="." unique_id=55948512]
+z_index = 2
+position = Vector2(0, -21)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_h7o6m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=707350569]
+position = Vector2(-1, 3)
+shape = SubResource("CapsuleShape2D_00we2")

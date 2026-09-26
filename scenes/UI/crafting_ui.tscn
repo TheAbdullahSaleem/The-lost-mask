@@ -1,0 +1,377 @@
+[gd_scene format=3 uid="uid://crafting_ui_scene"]
+
+[ext_resource type="Script" path="res://scripts/UI/crafting_ui.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="SBF_mainpanel"]
+bg_color = Color(0.96, 0.96, 0.98, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.72, 0.80, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 12
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="SBF_titlebar"]
+bg_color = Color(0.88, 0.88, 0.93, 1)
+border_width_bottom = 1
+border_color = Color(0.72, 0.72, 0.80, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+content_margin_left = 16
+content_margin_right = 10
+content_margin_top = 10
+content_margin_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="SBF_leftpanel"]
+bg_color = Color(0.91, 0.91, 0.95, 1)
+border_width_right = 1
+border_color = Color(0.72, 0.72, 0.80, 1)
+content_margin_left = 10
+content_margin_right = 10
+content_margin_top = 12
+content_margin_bottom = 12
+
+[sub_resource type="StyleBoxFlat" id="SBF_rightpanel"]
+bg_color = Color(0.96, 0.96, 0.98, 1)
+content_margin_left = 18
+content_margin_right = 18
+content_margin_top = 14
+content_margin_bottom = 14
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_normal"]
+bg_color = Color(0.99, 0.99, 1.0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.75, 0.83, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 12
+content_margin_right = 12
+content_margin_top = 10
+content_margin_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_hover"]
+bg_color = Color(0.88, 0.92, 1.0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.58, 0.90, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 12
+content_margin_right = 12
+content_margin_top = 10
+content_margin_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_selected"]
+bg_color = Color(0.80, 0.88, 1.0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.30, 0.50, 0.90, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 12
+content_margin_right = 12
+content_margin_top = 10
+content_margin_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="SBF_craft_normal"]
+bg_color = Color(0.18, 0.58, 0.22, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+content_margin_top = 12
+content_margin_bottom = 12
+
+[sub_resource type="StyleBoxFlat" id="SBF_craft_hover"]
+bg_color = Color(0.22, 0.70, 0.27, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+content_margin_top = 12
+content_margin_bottom = 12
+
+[sub_resource type="StyleBoxFlat" id="SBF_craft_disabled"]
+bg_color = Color(0.82, 0.82, 0.85, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+content_margin_top = 12
+content_margin_bottom = 12
+
+[sub_resource type="StyleBoxFlat" id="SBF_close_normal"]
+bg_color = Color(0.88, 0.88, 0.93, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SBF_close_hover"]
+bg_color = Color(0.90, 0.22, 0.22, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SBF_iconbg"]
+bg_color = Color(0.88, 0.88, 0.93, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.72, 0.80, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="CraftingUI" type="CanvasLayer"]
+script = ExtResource("1_script")
+layer = 10
+
+[node name="Overlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.50)
+
+[node name="MainPanel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -185.0
+offset_right = 295.0
+offset_bottom = 185.0
+theme_override_styles/panel = SubResource("SBF_mainpanel")
+
+[node name="Layout" type="VBoxContainer" parent="MainPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="TitleBar" type="Panel" parent="MainPanel/Layout"]
+custom_minimum_size = Vector2(0, 48)
+theme_override_styles/panel = SubResource("SBF_titlebar")
+
+[node name="TitleRow" type="HBoxContainer" parent="MainPanel/Layout/TitleBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -10.0
+offset_top = 0.0
+offset_bottom = 0.0
+
+[node name="TitleLabel" type="Label" parent="MainPanel/Layout/TitleBar/TitleRow"]
+size_flags_horizontal = 3
+text = "Crafting Table"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.12, 0.12, 0.20, 1)
+
+[node name="CloseBtn" type="Button" parent="MainPanel/Layout/TitleBar/TitleRow"]
+custom_minimum_size = Vector2(32, 32)
+text = "X"
+theme_override_styles/normal = SubResource("SBF_close_normal")
+theme_override_styles/hover = SubResource("SBF_close_hover")
+theme_override_styles/pressed = SubResource("SBF_close_hover")
+theme_override_styles/focus = SubResource("SBF_close_normal")
+theme_override_colors/font_color = Color(0.25, 0.25, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+
+[node name="BodyRow" type="HBoxContainer" parent="MainPanel/Layout"]
+size_flags_vertical = 3
+
+[node name="LeftPanel" type="Panel" parent="MainPanel/Layout/BodyRow"]
+custom_minimum_size = Vector2(175, 0)
+theme_override_styles/panel = SubResource("SBF_leftpanel")
+
+[node name="LeftContent" type="VBoxContainer" parent="MainPanel/Layout/BodyRow/LeftPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+offset_top = 12.0
+offset_bottom = -12.0
+
+[node name="LeftTitle" type="Label" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+text = "SELECT RECIPE"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.40, 0.40, 0.52, 1)
+
+[node name="LeftSep" type="HSeparator" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+theme_override_colors/separator = Color(0.72, 0.72, 0.80, 1)
+
+[node name="Spacer0" type="Control" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+custom_minimum_size = Vector2(0, 6)
+
+[node name="RecipeBtn0" type="Button" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+custom_minimum_size = Vector2(0, 50)
+text = "Iron Pickaxe"
+size_flags_horizontal = 3
+alignment = 0
+theme_override_styles/normal = SubResource("SBF_btn_normal")
+theme_override_styles/hover = SubResource("SBF_btn_hover")
+theme_override_styles/pressed = SubResource("SBF_btn_selected")
+theme_override_styles/focus = SubResource("SBF_btn_normal")
+theme_override_colors/font_color = Color(0.12, 0.12, 0.20, 1)
+theme_override_font_sizes/font_size = 13
+
+[node name="Spacer1" type="Control" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+custom_minimum_size = Vector2(0, 6)
+
+[node name="RecipeBtn1" type="Button" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+custom_minimum_size = Vector2(0, 50)
+text = "Diamond Pickaxe"
+size_flags_horizontal = 3
+alignment = 0
+theme_override_styles/normal = SubResource("SBF_btn_normal")
+theme_override_styles/hover = SubResource("SBF_btn_hover")
+theme_override_styles/pressed = SubResource("SBF_btn_selected")
+theme_override_styles/focus = SubResource("SBF_btn_normal")
+theme_override_colors/font_color = Color(0.12, 0.12, 0.20, 1)
+theme_override_font_sizes/font_size = 13
+
+[node name="Spacer2" type="Control" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+custom_minimum_size = Vector2(0, 6)
+
+[node name="RecipeBtn2" type="Button" parent="MainPanel/Layout/BodyRow/LeftPanel/LeftContent"]
+custom_minimum_size = Vector2(0, 50)
+text = "Dynamite"
+size_flags_horizontal = 3
+alignment = 0
+theme_override_styles/normal = SubResource("SBF_btn_normal")
+theme_override_styles/hover = SubResource("SBF_btn_hover")
+theme_override_styles/pressed = SubResource("SBF_btn_selected")
+theme_override_styles/focus = SubResource("SBF_btn_normal")
+theme_override_colors/font_color = Color(0.12, 0.12, 0.20, 1)
+theme_override_font_sizes/font_size = 13
+
+[node name="Divider" type="VSeparator" parent="MainPanel/Layout/BodyRow"]
+theme_override_colors/separator = Color(0.72, 0.72, 0.80, 1)
+
+[node name="RightPanel" type="Panel" parent="MainPanel/Layout/BodyRow"]
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("SBF_rightpanel")
+
+[node name="RightContent" type="VBoxContainer" parent="MainPanel/Layout/BodyRow/RightPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_right = -18.0
+offset_top = 14.0
+offset_bottom = -14.0
+
+[node name="TopRow" type="HBoxContainer" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+custom_minimum_size = Vector2(0, 76)
+
+[node name="IconBG" type="Panel" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/TopRow"]
+custom_minimum_size = Vector2(68, 68)
+theme_override_styles/panel = SubResource("SBF_iconbg")
+
+[node name="Icon" type="TextureRect" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/TopRow/IconBG"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameDescBox" type="VBoxContainer" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/TopRow"]
+size_flags_horizontal = 3
+offset_left = 16.0
+
+[node name="ItemName" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/TopRow/NameDescBox"]
+text = "Iron Pickaxe"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.10, 0.10, 0.18, 1)
+
+[node name="Desc1" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/TopRow/NameDescBox"]
+text = ""
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.38, 0.38, 0.50, 1)
+
+[node name="Desc2" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/TopRow/NameDescBox"]
+text = ""
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.38, 0.38, 0.50, 1)
+
+[node name="RightSep" type="HSeparator" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+theme_override_colors/separator = Color(0.72, 0.72, 0.80, 1)
+
+[node name="ReqTitle" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+text = "REQUIREMENTS"
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.40, 0.40, 0.52, 1)
+
+[node name="Req1Row" type="HBoxContainer" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+
+[node name="Req1" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/Req1Row"]
+size_flags_horizontal = 3
+text = "3  Iron"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.12, 0.12, 0.20, 1)
+
+[node name="Have1" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/Req1Row"]
+text = "0 / 3"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.80, 0.15, 0.15, 1)
+
+[node name="Req2Row" type="HBoxContainer" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+
+[node name="Req2" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/Req2Row"]
+size_flags_horizontal = 3
+text = "24  Dirt"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.12, 0.12, 0.20, 1)
+
+[node name="Have2" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent/Req2Row"]
+text = "0 / 24"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.80, 0.15, 0.15, 1)
+
+[node name="Spacer" type="Control" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+size_flags_vertical = 3
+
+[node name="FeedbackLabel" type="Label" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+horizontal_alignment = 1
+text = ""
+theme_override_font_sizes/font_size = 13
+
+[node name="CraftBtn" type="Button" parent="MainPanel/Layout/BodyRow/RightPanel/RightContent"]
+custom_minimum_size = Vector2(0, 44)
+text = "CRAFT"
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("SBF_craft_normal")
+theme_override_styles/hover = SubResource("SBF_craft_hover")
+theme_override_styles/pressed = SubResource("SBF_craft_normal")
+theme_override_styles/focus = SubResource("SBF_craft_normal")
+theme_override_styles/disabled = SubResource("SBF_craft_disabled")
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.60, 1)

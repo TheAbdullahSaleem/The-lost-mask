@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bcymh5pa56215"]
 
 [ext_resource type="Texture2D" uid="uid://b2p3d645mkcdq" path="res://assets/sprites/Tables/crafting table.png" id="1_87o7u"]
+[ext_resource type="Script" path="res://scripts/World/crafting_table.gd" id="2_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00we2"]
 size = Vector2(45.7317, 73.99999)
@@ -9,6 +10,7 @@ size = Vector2(45.7317, 73.99999)
 size = Vector2(32, 32)
 
 [node name="CraftingTable" type="Node2D" unique_id=935220178]
+script = ExtResource("2_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=496903148]
 texture = ExtResource("1_87o7u")
@@ -24,3 +26,8 @@ shape = SubResource("RectangleShape2D_00we2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=642159189]
 shape = SubResource("RectangleShape2D_v5r4p")
+
+[node name="InteractLabel" type="Label" parent="." unique_id=111222333]
+position = Vector2(-16, -60)
+text = "Press E"
+visible = false

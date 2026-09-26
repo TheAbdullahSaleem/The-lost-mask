@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var orbit_radius: float = 28.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var pickaxe: Node2D = $PickaxeIndicator
+@onready var pickaxe: Node2D = get_node_or_null("PickaxeIndicator")
 @onready var progress_bar: AnimatedSprite2D = get_node_or_null("MineProgress") as AnimatedSprite2D
 
 var _mine_timer: float = 0.0
@@ -25,6 +25,7 @@ func _ready() -> void:
 	animated_sprite.play("idle")
 	if progress_bar:
 		progress_bar.visible = false
+
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
@@ -50,7 +51,6 @@ func handle_jump() -> void:
 
 func handle_movement(delta: float) -> void:
 	var direction: float = Input.get_axis("left", "right")
-
 	if direction != 0:
 		velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 	else:
@@ -63,6 +63,7 @@ func update_pickaxe() -> void:
 
 	var mouse_world: Vector2 = get_global_mouse_position()
 	var angle: float = (mouse_world - global_position).angle()
+
 	# Move pickaxe around player in a circle — sprite stays upright
 	pickaxe.position = Vector2(orbit_radius, 0.0).rotated(angle)
 	pickaxe.rotation = 0.0
@@ -115,7 +116,6 @@ func handle_mining(delta: float) -> void:
 
 	if progress_bar:
 		progress_bar.visible = true
-		# Map 0.0→1.0 progress to frame 0→4
 		progress_bar.frame = int((_mine_timer / mine_time) * 4.0)
 
 	if _mine_timer >= mine_time:
@@ -127,14 +127,11 @@ func handle_mining(delta: float) -> void:
 
 
 func update_animation() -> void:
-	# 1. Check airborne state first (highest priority)
 	if not is_on_floor():
 		if velocity.y < 0:
-			play_animation("Jump")     # Going up (Note: Capital 'J' to match your naming)
+			play_animation("Jump")
 		else:
-			play_animation("falling")  # Going down
-	
-	# 2. Ground state
+			play_animation("falling")
 	else:
 		if abs(velocity.x) > 10.0:
 			if velocity.x < 0:
@@ -146,5 +143,7 @@ func update_animation() -> void:
 
 
 func play_animation(animation_name: String) -> void:
+	if not animated_sprite.sprite_frames.has_animation(animation_name):
+		return
 	if animated_sprite.animation != animation_name:
 		animated_sprite.play(animation_name)
