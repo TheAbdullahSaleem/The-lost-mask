@@ -143,5 +143,7 @@ func update_animation() -> void:
 
 
 func play_animation(animation_name: String) -> void:
+	if not animated_sprite.sprite_frames.has_animation(animation_name):
+		return
 	if animated_sprite.animation != animation_name:
 		animated_sprite.play(animation_name)

@@ -5,6 +5,8 @@ var inventory: Dictionary = {
 	"dirt": 0,
 	"charcoal": 0,
 	"iron": 0,
+	"diamond": 0,
+	"dynamite": 0,
 	"pickaxe": 1,
 }
 
@@ -12,6 +14,8 @@ var inventory_material: Dictionary = {
 	"dirt": preload("res://assets/sprites/dirt/dirt.png"),
 	"charcoal": preload("res://assets/sprites/charcoal/charcoal.png"),
 	"iron": preload("res://assets/sprites/iron/iron.png"),
+	"diamond": preload("res://assets/sprites/others/pickaxe.png"),   # placeholder until diamond sprite made
+	"dynamite": preload("res://assets/sprites/charcoal/charcoal.png"), # placeholder until dynamite sprite made
 	"pickaxe": preload("res://assets/sprites/others/pickaxe.png"),
 }
 
@@ -19,7 +23,9 @@ var item_slot_mapping: Dictionary = {
 	"dirt": 0,
 	"charcoal": 1,
 	"iron": 2,
-	"pickaxe": 3,
+	"diamond": 3,
+	"dynamite": 4,
+	"pickaxe": 5,
 }
 
 const inventory_scene = preload("res://scenes/Inventory/canvas_layer.tscn")
