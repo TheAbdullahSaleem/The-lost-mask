@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bdqiyofy01due"]
 
 [ext_resource type="Texture2D" uid="uid://djck6gnpu8mdw" path="res://assets/sprites/dirt/dirt.png" id="1_6m72w"]
-[ext_resource type="Script" uid="uid://5iypsqd4pq6e" path="res://scripts/world/world.gd" id="1_mxkvs"]
+[ext_resource type="Script" uid="uid://5iypsqd4pq6e" path="res://scripts/World/world.gd" id="1_mxkvs"]
 [ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="1_umvgx"]
 [ext_resource type="Texture2D" uid="uid://cpwoqutbljmnp" path="res://assets/sprites/charcoal/charcoal.png" id="2_v5dby"]
 [ext_resource type="Texture2D" uid="uid://p84un4sqefjj" path="res://assets/sprites/iron/iron.png" id="3_t5ptc"]
@@ -10,11 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://ccdcux6ul8op2" path="res://assets/sprites/others/fences.png" id="6_5qq27"]
 [ext_resource type="Texture2D" uid="uid://dwhi6o5kuq57r" path="res://assets/sprites/sky/sky.png" id="6_t5ptc"]
 [ext_resource type="Texture2D" uid="uid://mpn7nnlxnf3d" path="res://assets/sprites/sky/clouds.png" id="7_bq33v"]
-[ext_resource type="PackedScene" uid="uid://bcymh5pa56215" path="res://scenes/crafting_table.tscn" id="8_j2gmx"]
+[ext_resource type="PackedScene" uid="uid://bcymh5pa56215" path="res://scenes/world/crafting_table.tscn" id="8_j2gmx"]
 [ext_resource type="Texture2D" uid="uid://d13misresrvvl" path="res://assets/sprites/Tables/crafting_table_board.png" id="9_1yooq"]
-[ext_resource type="Texture2D" uid="uid://c4d52ow5rlhgf" path="res://assets/sprites/others/note.png" id="9_srmg5"]
 [ext_resource type="PackedScene" uid="uid://cyy5f86b54y43" path="res://scenes/world/tresure_closed.tscn" id="12_dlabj"]
 [ext_resource type="Texture2D" uid="uid://c82khjdbxo7cs" path="res://assets/sprites/others/cage.png" id="12_srmg5"]
+[ext_resource type="PackedScene" uid="uid://b1mei8wicl2d4" path="res://scenes/Inventory/canvas_layer.tscn" id="15_mxkvs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2gmx"]
 texture = ExtResource("1_6m72w")
@@ -121,7 +121,6 @@ metadata/_edit_lock_ = true
 [node name="digging note" type="Sprite2D" parent="sky" unique_id=391196741]
 z_index = -1
 position = Vector2(250, -10)
-texture = ExtResource("9_srmg5")
 
 [node name="crafting table" type="Node" parent="." unique_id=676931890]
 
@@ -162,3 +161,5 @@ shape = SubResource("RectangleShape2D_h7o6m")
 [node name="Tresure" parent="." unique_id=2065825590 instance=ExtResource("12_dlabj")]
 z_index = -1
 position = Vector2(905, 32)
+
+[node name="CanvasLayer" parent="." unique_id=459295037 instance=ExtResource("15_mxkvs")]

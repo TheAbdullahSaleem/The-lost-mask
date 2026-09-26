@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b1mei8wicl2d4"]
+
+[ext_resource type="Script" uid="uid://pjt426ncjqyg" path="res://scripts/Inventory/inventory.gd" id="1_72bkj"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=459295037]
+script = ExtResource("1_72bkj")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1288446305]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="inventorybox" type="HBoxContainer" parent="MarginContainer" unique_id=834138492]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/inventorybox" unique_id=1093692632]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="MarginContainer/inventorybox" unique_id=875606827]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Panel3" type="Panel" parent="MarginContainer/inventorybox" unique_id=1496451653]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Panel4" type="Panel" parent="MarginContainer/inventorybox" unique_id=1444651698]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Panel5" type="Panel" parent="MarginContainer/inventorybox" unique_id=1931944134]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Panel6" type="Panel" parent="MarginContainer/inventorybox" unique_id=1219516771]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
