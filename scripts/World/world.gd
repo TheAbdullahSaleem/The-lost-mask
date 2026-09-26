@@ -1,19 +1,34 @@
 extends Node2D
-var dirt_amount : int = 0
-var dirt_texture : Texture2D = preload("res://assets/sprites/dirt/dirt.png")
-var stone_amount : int = 0
-var stone_texture : Texture2D = preload("res://assets/sprites/stone/stone.png")
-var charcoal_amount : int = 0
-var charcoal_texture : Texture2D = preload("res://assets/sprites/charcoal/charcoal.png")
-var iron_amount : int = 0
-var iron_texture : Texture2D = preload("res://assets/sprites/iron/iron.png")
-var pickaxe_amount : int = 1
-var pickaxe_texture : Texture2D = preload("res://assets/sprites/others/pickaxe.png")
 
+@export var inventory: Dictionary = {
+	"dirt": 0,
+	"stone": 0,
+	"charcoal": 0,
+	"iron": 0,
+	"pickaxe": 1,
+}
+
+var inventory_material: Dictionary = {
+	"dirt": preload("res://assets/sprites/dirt/dirt.png"),
+	"stone": preload("res://assets/sprites/stone/stone.png"),
+	"charcoal": preload("res://assets/sprites/charcoal/charcoal.png"),
+	"iron": preload("res://assets/sprites/iron/iron.png"),
+	"pickaxe": preload("res://assets/sprites/others/pickaxe.png"),
+}
+
+# A dictionary mapping item keys to slot positions (0 to 5)
+var item_slot_mapping: Dictionary = {
+	"dirt": 0,
+	"stone": 1,
+	"charcoal": 2,
+	"iron": 3,
+	"pickaxe": 4
+}
+
+const inventory_scene = preload("res://scenes/Inventory/canvas_layer.tscn")
 @onready var blocks: TileMapLayer = $blocks
 
 const STONE_SOURCE_ID := 3
-
 const BLOCK_SCENES: Dictionary = {
 	0: "res://scenes/blocks/dirt.tscn",
 	1: "res://scenes/blocks/charcoal.tscn",
@@ -30,26 +45,26 @@ const BREAK_ANIM_PREFIX: Dictionary = {
 
 var _active_tiles: Dictionary = {}
 
+func _ready() -> void:
+	# Automatically spawn the UI layer onto the scene tree when the world starts
+	spawn_inventory()
+	
+	# Wait 5 seconds as requested, then add a test item
+	await get_tree().create_timer(5.0).timeout 
+	change_inventory_item("dirt", 1)
 
 func is_mineable(tile_coords: Vector2i) -> bool:
 	var source_id: int = blocks.get_cell_source_id(tile_coords)
-	if source_id == -1:
-		return false
-	if source_id == STONE_SOURCE_ID:
+	if source_id == -1 or source_id == STONE_SOURCE_ID:
 		return false
 	return true
 
-
 func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 	var source_id: int = blocks.get_cell_source_id(tile_coords)
-	if source_id == -1 or source_id == STONE_SOURCE_ID:
-		return
-	if _active_tiles.has(tile_coords):
+	if source_id == -1 or source_id == STONE_SOURCE_ID or _active_tiles.has(tile_coords):
 		return
 
 	_active_tiles[tile_coords] = true
-
-	# Erase the block immediately — animation is just a visual effect after
 	blocks.erase_cell(tile_coords)
 
 	if BLOCK_SCENES.has(source_id):
@@ -66,27 +81,26 @@ func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 			anim_name = anim_prefix + "_break_down"
 
 		sprite.play(anim_name)
-
-		# Wait one full loop then clean up
 		await sprite.animation_looped
 		block_instance.queue_free()
 
 	_active_tiles.erase(tile_coords)
-func add_inventory_item(block_name):
-	block_name += 1
-	InventoryBox.display_item(dirt_texture,dirt_amount)
-	InventoryBox.display_item(stone_texture,stone_amount)
-	InventoryBox.display_item(iron_texture,iron_amount)
-	InventoryBox.display_item(charcoal_texture,charcoal_amount)
-	InventoryBox.display_item(pickaxe_texture,pickaxe_amount)
 
-func substract_inventory_items(number_of_item,item_name):
-	item_name -= number_of_item
-	InventoryBox.display_item(dirt_texture,dirt_amount)
-	InventoryBox.display_item(stone_texture,stone_amount)
-	InventoryBox.display_item(iron_texture,iron_amount)
-	InventoryBox.display_item(charcoal_texture,charcoal_amount)
-	InventoryBox.display_item(pickaxe_texture,pickaxe_amount)
+func change_inventory_item(block_name: String, quantity: int) -> void:
+	block_name = block_name.to_lower()
+	if inventory.has(block_name):
+		inventory[block_name] += quantity
+		
+		# Locate the inventory slot matching this block type
+		if item_slot_mapping.has(block_name):
+			var slot_id = item_slot_mapping[block_name]
+			var texture = inventory_material[block_name]
+			var current_amount = inventory[block_name]
+			
+			# Fire a global group call to update the UI layer safely!
+			get_tree().call_group("inventory_ui", "update_slot_ui", slot_id, texture, current_amount)
 
-func _ready() -> void:
-	pass
+func spawn_inventory() -> void:
+	var inv_instance = inventory_scene.instantiate()
+	add_child(inv_instance)
+	print("Inventory UI canvas layer added successfully!")
