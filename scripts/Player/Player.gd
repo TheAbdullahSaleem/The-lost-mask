@@ -39,6 +39,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			if blocks_node:
 				var tile: Vector2i = blocks_node.local_to_map(blocks_node.to_local(get_global_mouse_position()))
 				var player_tile: Vector2i = blocks_node.local_to_map(blocks_node.to_local(global_position))
+				# Prevent placing on the player's body (feet or head)
+				if tile == player_tile or tile == (player_tile + Vector2i(0, -1)):
+					return
+					
 				if Vector2(tile).distance_to(Vector2(player_tile)) <= mine_reach:
 					world.place_block(get_global_mouse_position())
 

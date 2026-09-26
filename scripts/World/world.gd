@@ -14,7 +14,7 @@ var inventory_material: Dictionary = {
 	"dirt": preload("res://assets/sprites/dirt/dirt.png"),
 	"charcoal": preload("res://assets/sprites/charcoal/charcoal.png"),
 	"iron": preload("res://assets/sprites/iron/iron.png"),
-	"diamond": preload("res://assets/sprites/others/pickaxe.png"),   # placeholder until diamond sprite made
+	"diamond": preload("res://assets/sprites/diamond/diamond.png"),
 	"dynamite": preload("res://assets/sprites/others/dynamite.png"),
 	"pickaxe": preload("res://assets/sprites/others/pickaxe.png"),
 
@@ -35,14 +35,14 @@ const tutorial_scene = preload("res://scenes/UI/tutorial_ui.tscn")
 # ── Mining & Placing ─────────────────────────────────────────────────────────
 @onready var blocks: TileMapLayer = $blocks
 
-# Source 0=dirt, 1=charcoal, 2=iron, 3=stone (NOT mineable), 4=grass→drops dirt, 5=diamond(assumption)
+# Source 0=dirt, 1=charcoal, 2=iron, 3=stone (NOT mineable), 4=grass→drops dirt, 5=diamond
 const STONE_SOURCE_ID := 3
 
 const PLACEABLE_BLOCKS: Dictionary = {
 	"dirt": 0,
 	"charcoal": 1,
 	"iron": 2,
-	"diamond": 5, # adjust if diamond source_id differs
+	"diamond": 5,
 }
 
 const BLOCK_SCENES: Dictionary = {
@@ -50,6 +50,7 @@ const BLOCK_SCENES: Dictionary = {
 	1: "res://scenes/blocks/charcoal.tscn",
 	2: "res://scenes/blocks/stone.tscn",   # iron uses stone break anim
 	4: "res://scenes/blocks/dirt.tscn",    # grass uses dirt break anim
+	5: "res://scenes/blocks/diamond.tscn",
 }
 
 const BREAK_ANIM_PREFIX: Dictionary = {
@@ -57,6 +58,7 @@ const BREAK_ANIM_PREFIX: Dictionary = {
 	1: "charcoal",
 	2: "stone",
 	4: "dirt",
+	5: "diamond",
 }
 
 # What item each source_id drops into inventory
