@@ -5,7 +5,7 @@ extends Node2D
 	"stone": 0,
 	"charcoal": 0,
 	"iron": 0,
-	"pickaxe": 1,
+	"pickaxe": 0,
 }
 
 var inventory_material: Dictionary = {
@@ -18,11 +18,11 @@ var inventory_material: Dictionary = {
 
 # A dictionary mapping item keys to slot positions (0 to 5)
 var item_slot_mapping: Dictionary = {
-	"dirt": 0,
-	"stone": 1,
-	"charcoal": 2,
-	"iron": 3,
-	"pickaxe": 4
+	"pickaxe": 0,
+	"dirt": 1,
+	"stone": 2,
+	"charcoal": 3,
+	"iron": 4
 }
 
 const inventory_scene = preload("res://scenes/Inventory/canvas_layer.tscn")
@@ -51,7 +51,15 @@ func _ready() -> void:
 	
 	# Wait 5 seconds as requested, then add a test item
 	await get_tree().create_timer(5.0).timeout 
+	change_inventory_item("pickaxe", 1)
+	await get_tree().create_timer(5.0).timeout 
 	change_inventory_item("dirt", 1)
+	await get_tree().create_timer(5.0).timeout 
+	change_inventory_item("stone", 1)
+	await get_tree().create_timer(5.0).timeout 
+	change_inventory_item("iron", 1)
+	await get_tree().create_timer(5.0).timeout 
+	change_inventory_item("charcoal", 1)
 
 func is_mineable(tile_coords: Vector2i) -> bool:
 	var source_id: int = blocks.get_cell_source_id(tile_coords)
