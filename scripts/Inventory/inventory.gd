@@ -2,7 +2,7 @@ extends CanvasLayer
 @onready var inventorybox = $MarginContainer/inventorybox
 var max_slots : int = 6
 var active_slot_index: int = 0
-var slotbarr_data = ["","","","","",""]
+var slotbar_data = ["","","","","",""]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	highlight_active_slot()

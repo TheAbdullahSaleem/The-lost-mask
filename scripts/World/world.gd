@@ -1,4 +1,14 @@
 extends Node2D
+var dirt_amount : int = 0
+var dirt_texture : Texture2D = preload("res://assets/sprites/dirt/dirt.png")
+var stone_amount : int = 0
+var stone_texture : Texture2D = preload("res://assets/sprites/stone/stone.png")
+var charcoal_amount : int = 0
+var charcoal_texture : Texture2D = preload("res://assets/sprites/charcoal/charcoal.png")
+var iron_amount : int = 0
+var iron_texture : Texture2D = preload("res://assets/sprites/iron/iron.png")
+var pickaxe_amount : int = 0
+var pickaxe_texture : Texture2D = preload("res://assets/sprites/others/pickaxe.png")
 
 @onready var blocks: TileMapLayer = $blocks
 
@@ -62,3 +72,14 @@ func mine_tile(tile_coords: Vector2i, direction: String) -> void:
 		block_instance.queue_free()
 
 	_active_tiles.erase(tile_coords)
+func add_inventory_item(block_name):
+	block_name += 1
+
+func substract_inventory_items(number_of_item,item_name):
+	item_name -= number_of_item
+func _physics_process(delta: float) -> void:
+	InventoryBox.display_item(dirt_texture,dirt_amount)
+	InventoryBox.display_item(stone_texture,stone_amount)
+	InventoryBox.display_item(iron_texture,iron_amount)
+	InventoryBox.display_item(charcoal_texture,charcoal_amount)
+	InventoryBox.display_item(pickaxe_texture,pickaxe_amount)
