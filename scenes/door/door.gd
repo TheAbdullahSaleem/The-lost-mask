@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var target_scene_path: String = "res://scenes/arena/arena1.tscn"
+var unlocked: bool = true
 
 @onready var area: Area2D = $Area2D
 var interact_label: Label
@@ -40,30 +41,31 @@ func _unhandled_input(event: InputEvent) -> void:
 		transition_to_arena()
 
 func transition_to_arena() -> void:
-	is_transitioning = true
-	interact_label.visible = false
-	
-	# 1. Create a CanvasLayer to ensure the black fade covers the UI
-	var fade_layer = CanvasLayer.new()
-	fade_layer.layer = 100 # Put it on top of absolutely everything
-	add_child(fade_layer)
-	
-	# 2. Create the Black Rect
-	var color_rect = ColorRect.new()
-	color_rect.color = Color(0, 0, 0, 0) # Start fully transparent
-	color_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT) # Cover entire screen
-	fade_layer.add_child(color_rect)
-	
-	# 3. Tween the alpha to 1.0 (Solid Black) over 1 second
-	var tween = create_tween()
-	tween.tween_property(color_rect, "color:a", 1.0, 1.0)
-	
-	# 4. Wait for the fade to finish, then change scenes!
-	await tween.finished
-	get_tree().change_scene_to_file(target_scene_path)
+	if unlocked:
+		is_transitioning = true
+		interact_label.visible = false
+		
+		# 1. Create a CanvasLayer to ensure the black fade covers the UI
+		var fade_layer = CanvasLayer.new()
+		fade_layer.layer = 100 # Put it on top of absolutely everything
+		add_child(fade_layer)
+		
+		# 2. Create the Black Rect
+		var color_rect = ColorRect.new()
+		color_rect.color = Color(0, 0, 0, 0) # Start fully transparent
+		color_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT) # Cover entire screen
+		fade_layer.add_child(color_rect)
+		
+		# 3. Tween the alpha to 1.0 (Solid Black) over 1 second
+		var tween = create_tween()
+		tween.tween_property(color_rect, "color:a", 1.0, 1.0)
+		
+		# 4. Wait for the fade to finish, then change scenes!
+		await tween.finished
+		get_tree().change_scene_to_file(target_scene_path)
 	
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player" or body.name == "Player2":
+	if (body.name == "Player" or body.name == "Player2") and unlocked:
 		player_nearby = true
 		if not is_transitioning:
 			interact_label.visible = true

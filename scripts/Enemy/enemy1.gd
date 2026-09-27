@@ -7,6 +7,7 @@ var charging: bool = false
 var started: bool = false
 var current_health: int = 20
 
+@onready var door: Node2D = $"../Door"
 @onready var bossanim: AnimatedSprite2D = $Sprite2D
 @onready var chargeanim: AnimatedSprite2D = $charge
 @onready var Player: CharacterBody2D = $"../Player"
@@ -15,6 +16,7 @@ var current_health: int = 20
 var health_bar_sprite: Sprite2D
 
 func _ready():
+	door.unlocked = false
 	current_health = max_health
 	
 	health_bar_sprite = Sprite2D.new()
@@ -107,6 +109,7 @@ func take_damage(amount: int = 1) -> void:
 	update_health_bar()
 	
 	if current_health <= 0:
+		door.unlocked = true
 		queue_free() # Defeat boss
 		
 		

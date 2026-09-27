@@ -7,6 +7,7 @@
 size = Vector2(188, 174)
 
 [node name="Door" type="Node2D" unique_id=1248732323]
+z_index = -1
 script = ExtResource("1_sfo73")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1238579406]
