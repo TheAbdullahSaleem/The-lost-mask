@@ -145,11 +145,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1q5r"]
-size = Vector2(128, 128)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_y1q5r"]
-radius = 1841.2444
+radius = 4241.412
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c8bl5"]
 atlas = ExtResource("6_vv8fg")
@@ -259,9 +256,6 @@ shape = SubResource("RectangleShape2D_nl1qf")
 sprite_frames = SubResource("SpriteFrames_h7o6m")
 animation = &"idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=362426670]
-shape = SubResource("RectangleShape2D_y1q5r")
-
 [node name="Detection Zone" type="Area2D" parent="." unique_id=1502169117]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Zone" unique_id=1780981995]
@@ -277,6 +271,10 @@ animation = &"charge"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="charge/Area2D" unique_id=357661228]
 shape = SubResource("CircleShape2D_2bcqq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=942892132]
+position = Vector2(-21, -35)
+polygon = PackedVector2Array(-47, 104, -46, 7, -25, -18, 22, -33, 50, -33, 83, -13, 89, 34, 85, 104)
 
 [connection signal="body_entered" from="Detection Zone" to="." method="_on_detection_zone_body_entered"]
 [connection signal="body_exited" from="Detection Zone" to="." method="_on_detection_zone_body_exited"]

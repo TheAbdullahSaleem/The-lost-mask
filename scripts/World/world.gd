@@ -2,7 +2,7 @@ extends Node2D
 
 # ── Inventory Data ────────────────────────────────────────────────────────────
 var inventory: Dictionary = {
-	"dirt": 0,
+	"dirt": 100,
 	"charcoal": 0,
 	"iron": 0,
 	"diamond": 0,
@@ -35,7 +35,7 @@ const inventory_scene = preload("res://scenes/Inventory/canvas_layer.tscn")
 const tutorial_scene = preload("res://scenes/UI/tutorial_ui.tscn")
 
 # ── Mining & Placing ─────────────────────────────────────────────────────────
-@onready var blocks: TileMapLayer = $blocks
+@onready var blocks: TileMapLayer = $Blocks
 
 # Source 0=dirt, 1=charcoal, 2=iron, 3=stone (NOT mineable), 4=grass→drops dirt, 5=diamond
 const STONE_SOURCE_ID := 3
@@ -73,21 +73,30 @@ const BLOCK_DROP: Dictionary = {
 }
 
 var _active_tiles: Dictionary = {}
+@export var autobreaking: bool = false
+var break_timer: Timer = Timer.new()
+@export var break_time: float = 3
+@export var tutorial: bool = true
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
 	spawn_inventory()
 	
 	# Spawn tutorial broadcast UI
-	var tutorial_instance = tutorial_scene.instantiate()
-	add_child(tutorial_instance)
+	if tutorial:
+		var tutorial_instance = tutorial_scene.instantiate()
+		add_child(tutorial_instance)
+	
+	if autobreaking:
+		autobreaking = true
+		add_child(break_timer)
 
 # ── Placing API ───────────────────────────────────────────────────────────────
 func place_block(mouse_global_pos: Vector2) -> void:
 	var inv_ui = get_tree().get_first_node_in_group("inventory_ui")
 	if not inv_ui:
 		return
-		
+	
 	var active_slot = inv_ui.active_slot_index
 	var selected_item_name = ""
 	
@@ -113,6 +122,10 @@ func place_block(mouse_global_pos: Vector2) -> void:
 		blocks.set_cell(tile_coords, PLACEABLE_BLOCKS[selected_item_name], Vector2i(0, 0))
 		# Deduct from inventory
 		change_inventory_item(selected_item_name, -1)
+	if autobreaking:
+		break_timer.start(break_time)
+		await break_timer.timeout
+		mine_tile(tile_coords, "down")
 
 
 # ── Mining API ────────────────────────────────────────────────────────────────
