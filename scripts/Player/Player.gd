@@ -35,7 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("place"):
 		var world = get_parent()
 		if world and world.has_method("place_block"):
-			var blocks_node: TileMapLayer = world.get_node_or_null("blocks")
+			var blocks_node: TileMapLayer = world.get_node_or_null("Blocks")
 			if blocks_node:
 				var tile: Vector2i = blocks_node.local_to_map(blocks_node.to_local(get_global_mouse_position()))
 				var player_tile: Vector2i = blocks_node.local_to_map(blocks_node.to_local(global_position))
@@ -101,7 +101,7 @@ func update_pickaxe() -> void:
 	var world: Node = get_parent()
 	if not world:
 		return
-	var blocks_node: TileMapLayer = world.get_node_or_null("blocks")
+	var blocks_node: TileMapLayer = world.get_node_or_null("Blocks")
 	if not blocks_node:
 		return
 
