@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bj64y1bxibttf"]
+
+[ext_resource type="Texture2D" uid="uid://bafpdasuq7nmt" path="res://assets/sprites/others/treasure_open.png" id="1_6aycp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7o6m"]
+size = Vector2(98, 67)
+
+[node name="Tresure" type="Node2D" unique_id=2065825590]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1582770006]
+texture = ExtResource("1_6aycp")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=252387413]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=1202107685]
+position = Vector2(1, 6)
+shape = SubResource("RectangleShape2D_h7o6m")

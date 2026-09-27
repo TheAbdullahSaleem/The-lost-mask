@@ -166,6 +166,7 @@ func _on_craft_pressed() -> void:
 	_select(_selected)
 
 
+
 func _close() -> void:
 	get_tree().paused = false
 	queue_free()

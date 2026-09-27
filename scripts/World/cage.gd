@@ -7,14 +7,6 @@ var static_body: StaticBody2D
 var active_player: Node2D = null
 
 func _ready() -> void:
-	# Add solid collision to prevent player from passing
-	static_body = StaticBody2D.new()
-	var collision_shape = CollisionShape2D.new()
-	var rect = RectangleShape2D.new()
-	rect.size = Vector2(32, 32) # Approx cage size
-	collision_shape.shape = rect
-	static_body.add_child(collision_shape)
-	add_child(static_body)
 
 	# Setup the note label
 	note_label = Label.new()
@@ -37,7 +29,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if active_player and note_label.visible:
-		# Center the label above the player's head
+		# Center the label above the player's hea\
 		var offset_x = -note_label.size.x / 2.0
 		var offset_y = -60.0
 		note_label.global_position = active_player.global_position + Vector2(offset_x, offset_y)
