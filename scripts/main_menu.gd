@@ -61,6 +61,12 @@ func _apply_styles():
 				btn.add_theme_font_override("font", custom_font)
 
 func start_game():
+	Global.is_initialized = false
+	Global.world_tile_data.clear()
+	Global.boss1_defeated = false
+	Global.boss2_defeated = false
+	Global.has_mask_half = false
+	Global.has_mask_full = false
 	get_tree().change_scene_to_file("res://scenes/world/world.tscn")
 
 func quit_game():

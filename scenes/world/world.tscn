@@ -201,5 +201,7 @@ position = Vector2(635, 1839.0001)
 scale = Vector2(0.66, 0.66)
 
 [node name="Door2" parent="." unique_id=427998086 instance=ExtResource("19_wbwoo")]
+target_scene_path = "res://scenes/arena/arena2.tscn"
 position = Vector2(640, 3983)
 scale = Vector2(0.66, 0.66)
+

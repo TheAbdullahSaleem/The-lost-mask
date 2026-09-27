@@ -139,12 +139,22 @@ func die() -> void:
 	
 	# Handle button clicks
 	btn_restart.pressed.connect(func():
-		Global.is_initialized = false # Reset inventory and upgrades
+		Global.is_initialized = false
+		Global.world_tile_data.clear() # Fixes TileSetAtlasSource lambda errors on restart
+		Global.boss1_defeated = false
+		Global.boss2_defeated = false
+		Global.has_mask_half = false
+		Global.has_mask_full = false
 		get_tree().change_scene_to_file("res://scenes/world/world.tscn")
 	)
 	
 	btn_menu.pressed.connect(func():
 		Global.is_initialized = false
+		Global.world_tile_data.clear()
+		Global.boss1_defeated = false
+		Global.boss2_defeated = false
+		Global.has_mask_half = false
+		Global.has_mask_full = false
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	)
 	
@@ -172,11 +182,16 @@ func shake_screen(intensity: float = 10.0, duration: float = 0.2) -> void:
 	var original_offset = cam.offset
 	var timer = get_tree().create_timer(duration)
 	
-	while timer.time_left > 0:
+	while timer.time_left > 0 and is_inside_tree():
 		cam.offset = Vector2(randf_range(-intensity, intensity), randf_range(-intensity, intensity))
-		await get_tree().process_frame
-		
-	cam.offset = original_offset
+		var tree = get_tree()
+		if tree:
+			await tree.process_frame
+		else:
+			break
+			
+	if is_instance_valid(cam):
+		cam.offset = original_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("teleport"):

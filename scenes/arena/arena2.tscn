@@ -144,6 +144,3 @@ position = Vector2(1119, 377)
 [node name="Door" parent="." unique_id=1248732323 instance=ExtResource("13_hnk5l")]
 position = Vector2(125, 534)
 target_scene_path = "res://scenes/world/world.tscn"
-
-[node name="Enemy2" parent="." unique_id=1706128082 instance=ExtResource("11_5bjma")]
-position = Vector2(567, 370)

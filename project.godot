@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The Lost Mask"
-run/main_scene="uid://bdqiyofy01due"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
@@ -76,3 +76,4 @@ place={
 
 textures/canvas_textures/default_texture_filter=3
 rendering_device/driver.windows="d3d12"
+
