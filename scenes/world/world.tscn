@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cyy5f86b54y43" path="res://scenes/world/treasure_closed.tscn" id="12_dlabj"]
 [ext_resource type="Texture2D" uid="uid://c82khjdbxo7cs" path="res://assets/sprites/others/cage.png" id="12_srmg5"]
 [ext_resource type="Texture2D" uid="uid://b54iqu165neo2" path="res://assets/sprites/others/New Piskel.png" id="15_mxkvs"]
+[ext_resource type="PackedScene" uid="uid://xhfwb0cprnbb" path="res://scenes/Boss/Boss1.tscn" id="19_wbwoo"]
 [ext_resource type="Script" uid="uid://c0gati6s6dbvd" path="res://scripts/World/cage.gd" id="99_cage_script"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2gmx"]
@@ -111,11 +112,11 @@ size = Vector2(61.666656, 63.888893)
 [node name="World" type="Node2D" unique_id=1269270677]
 script = ExtResource("1_mxkvs")
 
-[node name="Player2" parent="." unique_id=963505063 instance=ExtResource("1_umvgx")]
+[node name="Player" parent="." unique_id=963505063 instance=ExtResource("1_umvgx")]
 z_index = 20
 position = Vector2(434, 48)
 
-[node name="Camera2D" type="Camera2D" parent="Player2" unique_id=2039750525]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2039750525]
 zoom = Vector2(2.8, 2.8)
 limit_left = 100
 limit_top = -350
@@ -191,3 +192,7 @@ position = Vector2(905, 32)
 z_index = -1
 position = Vector2(256, -11)
 texture = ExtResource("15_mxkvs")
+
+[node name="Boss1" parent="." unique_id=1559752797 instance=ExtResource("19_wbwoo")]
+position = Vector2(651, -81.000015)
+scale = Vector2(0.565, 0.565)

@@ -112,7 +112,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fqer1")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -149,7 +149,7 @@ animations = [{
 size = Vector2(128, 128)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y1q5r"]
-radius = 296.00168
+radius = 1841.2444
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c8bl5"]
 atlas = ExtResource("6_vv8fg")
@@ -238,7 +238,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_shfoj")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"charge",
 "speed": 5.0
 }]
@@ -257,7 +257,7 @@ shape = SubResource("RectangleShape2D_nl1qf")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=622945265]
 sprite_frames = SubResource("SpriteFrames_h7o6m")
-animation = &"charge"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=362426670]
 shape = SubResource("RectangleShape2D_y1q5r")
@@ -272,7 +272,6 @@ z_index = -1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_2x23e")
 animation = &"charge"
-frame_progress = 0.55640334
 
 [node name="Area2D" type="Area2D" parent="charge" unique_id=658735108]
 
@@ -281,3 +280,4 @@ shape = SubResource("CircleShape2D_2bcqq")
 
 [connection signal="body_entered" from="Detection Zone" to="." method="_on_detection_zone_body_entered"]
 [connection signal="body_exited" from="Detection Zone" to="." method="_on_detection_zone_body_exited"]
+[connection signal="body_entered" from="charge/Area2D" to="." method="_on_area_2d_body_entered"]
