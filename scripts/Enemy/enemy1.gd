@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @export var speed = 100.0
-@export var max_health: int = 30
+@export var max_health: int = 20
 
 var target :CharacterBody2D = null
 var charging: bool = false
@@ -109,7 +109,9 @@ func take_damage(amount: int = 1) -> void:
 	update_health_bar()
 	
 	if current_health <= 0:
-		door.unlocked = true
 		queue_free() # Defeat boss
+		get_parent().enemy_count -= 1
+		if get_parent().enemy_count <= 0:
+			door.unlocked = true
 		
 		

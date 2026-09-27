@@ -76,6 +76,7 @@ var _active_tiles: Dictionary = {}
 @export var autobreaking: bool = false
 @export var break_time: float = 3
 @export var tutorial: bool = true
+@export var enemy_count: int = 0
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
