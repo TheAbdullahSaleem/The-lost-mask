@@ -1,16 +1,16 @@
-[gd_scene format=3 uid="uid://ddk0lce4ih7l0"]
+[gd_scene format=3 uid="uid://c618jh4pt1i6g"]
 
-[ext_resource type="Script" uid="uid://c02beg4fla1xm" path="res://scenes/door/door2.gd" id="1_qq7te"]
-[ext_resource type="Texture2D" uid="uid://byajnd68xkqqg" path="res://assets/sprites/others/Door.png" id="2_h6doc"]
+[ext_resource type="Script" uid="uid://bfv41pqvgps7p" path="res://scenes/door/door.gd" id="1_sfo73"]
+[ext_resource type="Texture2D" uid="uid://byajnd68xkqqg" path="res://assets/sprites/others/Door.png" id="2_dt54l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tytul"]
 size = Vector2(188, 174)
 
 [node name="Door" type="Node2D" unique_id=1248732323]
-script = ExtResource("1_qq7te")
+script = ExtResource("1_sfo73")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1238579406]
-texture = ExtResource("2_h6doc")
+texture = ExtResource("2_dt54l")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1761168510]
 

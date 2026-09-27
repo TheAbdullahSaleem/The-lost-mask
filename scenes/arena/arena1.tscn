@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://mpn7nnlxnf3d" path="res://assets/sprites/sky/clouds.png" id="9_anfo7"]
 [ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="10_c55h2"]
 [ext_resource type="PackedScene" uid="uid://xhfwb0cprnbb" path="res://scenes/Boss/Boss1.tscn" id="11_ylnwm"]
-[ext_resource type="PackedScene" uid="uid://cpjnjso1clyiv" path="res://scenes/door/door_return.tscn" id="13_c55h2"]
+[ext_resource type="PackedScene" uid="uid://c618jh4pt1i6g" path="res://scenes/door/door.tscn" id="13_c55h2"]
 [ext_resource type="Script" uid="uid://5iypsqd4pq6e" path="res://scripts/World/world.gd" id="99_worldscript"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_anfo7"]
@@ -127,6 +127,7 @@ z_index = -1
 position = Vector2(250, -10)
 
 [node name="Player" parent="." unique_id=632287275 instance=ExtResource("10_c55h2")]
+z_index = 20
 position = Vector2(190, 593)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=593380872]
@@ -142,6 +143,5 @@ position = Vector2(905, 372)
 scale = Vector2(0.8, 0.8)
 
 [node name="Door" parent="." unique_id=1248732323 instance=ExtResource("13_c55h2")]
-z_index = -1
-position = Vector2(125, 563)
-scale = Vector2(0.6, 0.6)
+position = Vector2(202, 532)
+target_scene_path = "res://scenes/world/world.tscn"
