@@ -58,6 +58,9 @@ func _ready() -> void:
 	walk_player.stream = sfx_walk
 	jump_player.stream = sfx_jump
 	
+	jump_player.volume_db = -12.0 # Lowered jump volume as requested
+	walk_player.volume_db = -5.0 # Walk also needs a slight tune down so it's not overbearing
+	
 	current_health = max_health
 	spawn_position = global_position
 	animated_sprite.play("idle")

@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not player_nearby or is_transitioning or not unlocked:
+	if not player_nearby or is_transitioning or not unlocked or is_door_locked():
 		return
 	
 	if event is InputEventKey and event.keycode == KEY_E and event.pressed and not event.echo:
@@ -76,15 +76,23 @@ func transition_to_arena() -> void:
 			
 		get_tree().change_scene_to_file(target_scene_path)
 	
+func is_door_locked() -> bool:
+	if Global.boss1_defeated and target_scene_path.ends_with("arena1.tscn"):
+		return true
+	if Global.boss2_defeated and target_scene_path.ends_with("arena2.tscn"):
+		return true
+	return false
+
 func _on_body_entered(body: Node2D) -> void:
-	if (body.name == "Player" or body.name == "Player2") and unlocked:
+	if (body.name == "Player" or body.name == "Player2"):
 		player_nearby = true
 		if not is_transitioning:
-			if not unlocked:
+			if is_door_locked() or not unlocked:
 				interact_label.text = "[LOCKED]"
 				interact_label.add_theme_color_override("font_color", Color(1, 0, 0, 1))
 			else:
 				interact_label.text = "[E]"
+				interact_label.remove_theme_color_override("font_color")
 			interact_label.visible = true
 
 func _on_body_exited(body: Node2D) -> void:

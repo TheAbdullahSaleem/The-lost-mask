@@ -111,23 +111,23 @@ func take_damage(amount: int = 1) -> void:
 	if current_health <= 0:
 		queue_free() # Defeat boss
 		get_parent().enemy_count -= 1
+		
 		if get_parent().enemy_count <= 0:
-			if get_tree().current_scene.name == "arena1":
+			var arena_name = get_tree().current_scene.name
+			if arena_name == "Arena1":
 				Global.boss1_defeated = true
 				var mask_scene = load("res://scenes/mask_half.tscn")
 				if mask_scene:
 					var mask_instance = mask_scene.instantiate()
 					mask_instance.global_position = global_position
-					# Add it to the arena root so it doesn't get freed with the boss
-					get_parent().add_child(mask_instance)
+					get_parent().call_deferred("add_child", mask_instance)
 			else:
 				Global.boss2_defeated = true
 				var mask_scene = load("res://scenes/mask_right.tscn")
 				if mask_scene:
 					var mask_instance = mask_scene.instantiate()
 					mask_instance.global_position = global_position
-					# Add it to the arena root so it doesn't get freed with the boss
-					get_parent().add_child(mask_instance)
+					get_parent().call_deferred("add_child", mask_instance)
 			door.unlocked = true
 		elif get_parent().enemy_count == 2:
 			var golem1 = golem.instantiate()

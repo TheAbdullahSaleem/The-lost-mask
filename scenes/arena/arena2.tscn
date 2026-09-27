@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://cf0x36kd54480"]
+[gd_scene format=4 uid="uid://cnf8bc2a40le3"]
 
 [ext_resource type="Texture2D" uid="uid://djck6gnpu8mdw" path="res://assets/sprites/dirt/dirt.png" id="1_57sf1"]
 [ext_resource type="Script" uid="uid://5iypsqd4pq6e" path="res://scripts/World/world.gd" id="1_lfq0t"]

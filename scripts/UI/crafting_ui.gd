@@ -24,17 +24,7 @@ const RECIPES: Array[Dictionary] = [
 		"result_value": 0.15,
 		"desc_line1": "Blazing fast mining!",
 		"desc_line2": "Mine time: 0.15s per block"
-	},
-	{
-		"id": "dynamite",
-		"name": "Dynamite",
-		"icon": "res://assets/sprites/others/dynamite.png",
-		"cost": {"charcoal": 9, "diamond": 1},
-		"result_type": "give_item",
-		"result_value": "dynamite",
-		"desc_line1": "Instantly destroys",
-		"desc_line2": "a 3x3 area of blocks!"
-	},
+	}
 ]
 
 var _selected: int = 0
@@ -66,11 +56,16 @@ func _ready() -> void:
 
 	close_btn.pressed.connect(_close)
 	craft_btn.pressed.connect(_on_craft_pressed)
-	recipe_btn_0.pressed.connect(func(): _select(0))
-	recipe_btn_1.pressed.connect(func(): _select(1))
-	recipe_btn_2.pressed.connect(func(): _select(2))
+	
+	for i in range(_recipe_buttons.size()):
+		if i < RECIPES.size():
+			_recipe_buttons[i].pressed.connect(func(): _select(i))
+			_recipe_buttons[i].visible = true
+		else:
+			_recipe_buttons[i].visible = false
 
-	_select(0)
+	if RECIPES.size() > 0:
+		_select(0)
 
 
 func _unhandled_input(event: InputEvent) -> void:

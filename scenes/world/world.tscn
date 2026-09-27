@@ -71,17 +71,11 @@ texture = ExtResource("6_t5ptc")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/z_index = -1
-1:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rwifv"]
 texture = ExtResource("9_m114p")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
-1:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_aa8uq"]
 tile_size = Vector2i(32, 32)

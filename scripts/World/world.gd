@@ -2,7 +2,7 @@ extends Node2D
 
 # ── Inventory Data ────────────────────────────────────────────────────────────
 var inventory: Dictionary = {
-	"dirt": 100,
+	"dirt": 0,
 	"charcoal": 0,
 	"iron": 0,
 	"diamond": 0,
