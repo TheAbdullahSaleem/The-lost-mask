@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dpdxljlllew2e" path="res://scripts/progressbar/progressbar.gd" id="2_3ljyu"]
 
 [node name="Sprite2D" type="Sprite2D" unique_id=926927072]
-rotation = -1.5707964
 texture = ExtResource("1_xn20a")
 hframes = 10
 vframes = 2

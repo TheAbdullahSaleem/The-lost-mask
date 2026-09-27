@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="1_umvgx"]
 [ext_resource type="Texture2D" uid="uid://cpwoqutbljmnp" path="res://assets/sprites/charcoal/charcoal.png" id="2_v5dby"]
 [ext_resource type="Texture2D" uid="uid://p84un4sqefjj" path="res://assets/sprites/iron/iron.png" id="3_t5ptc"]
-[ext_resource type="PackedScene" uid="uid://c483aa5utnff1" path="res://scenes/progressbar/progressbar.tscn" id="3_tytul"]
+[ext_resource type="PackedScene" uid="uid://chicyamu5nt5f" path="res://scenes/progressbar/progressbar.tscn" id="3_tytul"]
 [ext_resource type="Texture2D" uid="uid://cqtjels4rqoc2" path="res://assets/sprites/stone/stone.png" id="4_bq33v"]
 [ext_resource type="PackedScene" uid="uid://ddk0lce4ih7l0" path="res://scenes/door/door2.tscn" id="4_t634p"]
 [ext_resource type="Texture2D" uid="uid://cpbfuk32p3boa" path="res://assets/sprites/dirt/grass.png" id="5_gb53w"]
@@ -119,7 +119,7 @@ z_index = 20
 position = Vector2(434, 48)
 
 [node name="Sprite2D" parent="Player" unique_id=926927072 node_paths=PackedStringArray("player", "target") instance=ExtResource("3_tytul")]
-position = Vector2(680.9115, 3548.7402)
+position = Vector2(-170, 5)
 player = NodePath("..")
 target = NodePath("../../Door")
 min_detect_distance = 50.0
