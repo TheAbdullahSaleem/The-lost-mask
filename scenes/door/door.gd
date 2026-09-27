@@ -52,6 +52,11 @@ func transition_to_arena() -> void:
 		is_transitioning = true
 		interact_label.visible = false
 		
+		var ins = AudioStreamPlayer.new()
+		ins.stream = preload("res://assets/sounds/interact.mp3")
+		add_child(ins)
+		ins.play()
+		
 		# 1. Create a CanvasLayer to ensure the black fade covers the UI
 		var fade_layer = CanvasLayer.new()
 		fade_layer.layer = 100 # Put it on top of absolutely everything

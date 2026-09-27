@@ -171,6 +171,13 @@ func place_block(mouse_global_pos: Vector2) -> void:
 		blocks.set_cell(tile_coords, PLACEABLE_BLOCKS[selected_item_name], Vector2i(0, 0))
 		# Deduct from inventory
 		change_inventory_item(selected_item_name, -1)
+		
+		# Play placement sound
+		var bop = AudioStreamPlayer.new()
+		bop.stream = preload("res://assets/sounds/bop.mp3")
+		add_child(bop)
+		bop.play()
+		bop.finished.connect(bop.queue_free)
 	if autobreaking:
 		await get_tree().create_timer(break_time).timeout
 		mine_tile(tile_coords, "down")

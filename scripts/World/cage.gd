@@ -40,6 +40,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if active_player and Global.has_mask_full:
 		if event is InputEventKey and event.keycode == KEY_E and event.pressed and not event.echo:
 			# Open the cage
+			var cs = AudioStreamPlayer.new()
+			cs.stream = preload("res://assets/sounds/cage.mp3")
+			get_tree().current_scene.add_child(cs)
+			cs.play()
+			cs.finished.connect(cs.queue_free)
+			
 			var tw = create_tween()
 			tw.tween_property(self, "modulate:a", 0.0, 1.5)
 			tw.tween_callback(self.queue_free)

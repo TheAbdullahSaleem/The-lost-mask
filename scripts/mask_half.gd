@@ -8,6 +8,12 @@ func _ready():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
+		var ps = AudioStreamPlayer.new()
+		ps.stream = preload("res://assets/sounds/pickup.mp3")
+		get_tree().current_scene.add_child(ps)
+		ps.play()
+		ps.finished.connect(ps.queue_free)
+		
 		Global.has_mask_half = true
 		get_tree().call_group("inventory_ui", "show_mask_half")
 		queue_free()

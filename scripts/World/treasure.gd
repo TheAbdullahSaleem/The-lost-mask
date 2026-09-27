@@ -39,6 +39,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if active_player and label.visible:
 		if event is InputEventKey and event.keycode == KEY_E and event.pressed and not event.echo:
 			label.visible = false
+			
+			var ts = AudioStreamPlayer.new()
+			ts.stream = preload("res://assets/sounds/treasure.mp3")
+			add_child(ts)
+			ts.play()
+			
 			# Camera shake
 			if active_player and active_player.has_method("shake_screen"):
 				active_player.shake_screen(15.0, 3.0)

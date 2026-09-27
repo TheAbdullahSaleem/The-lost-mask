@@ -25,8 +25,26 @@ var _current_mine_tile: Vector2i = Vector2i(-9999, -9999)
 var _target_tile: Vector2i = Vector2i(-9999, -9999)
 var spawn_position: Vector2 = Vector2.ZERO
 
+var sfx_dig1 = preload("res://assets/sounds/dig1.mp3")
+var sfx_dig2 = preload("res://assets/sounds/dig2.mp3")
+var sfx_shot = preload("res://assets/sounds/shot.mp3")
+var sfx_hurt = preload("res://assets/sounds/hurt.mp3")
+var sfx_click = preload("res://assets/sounds/click.mp3")
+
+var dig_player = AudioStreamPlayer.new()
+var shot_player = AudioStreamPlayer.new()
+var hurt_player = AudioStreamPlayer.new()
+var ui_player = AudioStreamPlayer.new()
 
 func _ready() -> void:
+	add_child(dig_player)
+	add_child(shot_player)
+	add_child(hurt_player)
+	add_child(ui_player)
+	shot_player.stream = sfx_shot
+	hurt_player.stream = sfx_hurt
+	ui_player.stream = sfx_click
+	
 	current_health = max_health
 	spawn_position = global_position
 	animated_sprite.play("idle")
@@ -46,6 +64,7 @@ func take_damage(amount: int = 1) -> void:
 	if is_invincible or is_dead:
 		return
 		
+	hurt_player.play()
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)
 	sync_health_ui()
@@ -139,6 +158,10 @@ func die() -> void:
 	
 	# Handle button clicks
 	btn_restart.pressed.connect(func():
+		ui_player.play()
+		btn_restart.disabled = true
+		btn_menu.disabled = true
+		await get_tree().create_timer(0.15).timeout
 		Global.is_initialized = false
 		Global.world_tile_data.clear() # Fixes TileSetAtlasSource lambda errors on restart
 		Global.boss1_defeated = false
@@ -149,6 +172,10 @@ func die() -> void:
 	)
 	
 	btn_menu.pressed.connect(func():
+		ui_player.play()
+		btn_restart.disabled = true
+		btn_menu.disabled = true
+		await get_tree().create_timer(0.15).timeout
 		Global.is_initialized = false
 		Global.world_tile_data.clear()
 		Global.boss1_defeated = false
@@ -219,6 +246,7 @@ func throw_pickaxe() -> void:
 	if is_instance_valid(active_boomerang):
 		return # Cannot throw again until the pickaxe returns
 		
+	shot_player.play()
 	var world = get_parent()
 	var scene_path = "res://assets/sprites/weapon/stone pickaxe.tscn" # Default
 	
@@ -362,6 +390,13 @@ func handle_mining(delta: float) -> void:
 		_current_mine_tile = Vector2i(-9999, -9999)
 		if progress_bar:
 			progress_bar.visible = false
+			
+		if randf() > 0.5:
+			dig_player.stream = sfx_dig1
+		else:
+			dig_player.stream = sfx_dig2
+		dig_player.play()
+			
 		world.mine_tile(_target_tile, _mine_direction)
 
 func show_stone_warning() -> void:

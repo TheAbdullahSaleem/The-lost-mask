@@ -1,6 +1,12 @@
 extends Control
 
+var ui_player: AudioStreamPlayer
+
 func _ready():
+	ui_player = AudioStreamPlayer.new()
+	ui_player.stream = preload("res://assets/sounds/click.mp3")
+	add_child(ui_player)
+	
 	$VBoxContainer/PlayButton.pressed.connect(start_game)
 	$VBoxContainer/QuitButton.pressed.connect(quit_game)
 	
@@ -61,6 +67,10 @@ func _apply_styles():
 				btn.add_theme_font_override("font", custom_font)
 
 func start_game():
+	ui_player.play()
+	$VBoxContainer/PlayButton.disabled = true
+	$VBoxContainer/QuitButton.disabled = true
+	await get_tree().create_timer(0.15).timeout
 	Global.is_initialized = false
 	Global.world_tile_data.clear()
 	Global.boss1_defeated = false
@@ -70,4 +80,8 @@ func start_game():
 	get_tree().change_scene_to_file("res://scenes/world/world.tscn")
 
 func quit_game():
+	ui_player.play()
+	$VBoxContainer/PlayButton.disabled = true
+	$VBoxContainer/QuitButton.disabled = true
+	await get_tree().create_timer(0.15).timeout
 	get_tree().quit()
