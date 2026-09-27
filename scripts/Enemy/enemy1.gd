@@ -21,11 +21,11 @@ func _ready():
 	var tex = load("res://assets/sprites/others/boss_health.png")
 	if tex:
 		health_bar_sprite.texture = tex
-		health_bar_sprite.vframes = 4
-		health_bar_sprite.hframes = 1
+		health_bar_sprite.vframes = 9
+		health_bar_sprite.hframes = 3
 		
 	# Float it above the boss
-	health_bar_sprite.position = Vector2(0, -250)
+	health_bar_sprite.position = Vector2(0, -100)
 	health_bar_sprite.z_index = 100
 	add_child(health_bar_sprite)
 			
@@ -77,12 +77,12 @@ func update_animation():
 	if not charging:
 		chargeanim.visible = false
 		chargeanim.process_mode = Node.PROCESS_MODE_DISABLED
-		if velocity.x > 0:
-			bossanim.play("right")
+		if velocity.x == 0:
+			bossanim.play("idle")
 		elif velocity.x < 0:
 			bossanim.play("left")
 		else:
-			bossanim.play("idle")
+			bossanim.play("right")
 	else:
 		chargeanim.visible = true
 		chargeanim.process_mode = Node.PROCESS_MODE_INHERIT
