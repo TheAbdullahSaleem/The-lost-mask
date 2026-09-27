@@ -12,35 +12,22 @@ var current_health: int = 20
 @onready var Player: CharacterBody2D = $"../Player"
 @onready var Blocks: TileMapLayer = $"../Blocks"
 
-var health_bar_container: Node2D
-var health_bar_sprite: Node2D
+var health_bar_sprite: Sprite2D
 
 func _ready():
 	current_health = max_health
 	
-	# Use the user's custom boss_health scene
-	var health_scene = load("res://scenes/boss_health.tscn")
-	if health_scene:
-		health_bar_container = health_scene.instantiate()
-		add_child(health_bar_container)
-		health_bar_container.position = Vector2(0, -250)
-		health_bar_container.z_index = 100
+	health_bar_sprite = Sprite2D.new()
+	var tex = load("res://assets/sprites/others/boss_health.png")
+	if tex:
+		health_bar_sprite.texture = tex
+		health_bar_sprite.vframes = 4
+		health_bar_sprite.hframes = 1
 		
-		# Try to find the user's AnimatedSprite2D or Sprite2D inside their scene
-		for child in health_bar_container.get_children():
-			if child is AnimatedSprite2D or child is Sprite2D:
-				health_bar_sprite = child
-				break
-				
-		# Fallback just in case the scene is empty (not fully saved)
-		if not health_bar_sprite:
-			health_bar_sprite = Sprite2D.new()
-			var tex = load("res://assets/sprites/others/boss_health.png")
-			if tex:
-				health_bar_sprite.texture = tex
-				health_bar_sprite.vframes = 4
-				health_bar_sprite.hframes = 1
-			health_bar_container.add_child(health_bar_sprite)
+	# Float it above the boss
+	health_bar_sprite.position = Vector2(0, -250)
+	health_bar_sprite.z_index = 100
+	add_child(health_bar_sprite)
 			
 	update_health_bar()
 	
@@ -65,6 +52,16 @@ func _physics_process(delta: float) -> void:
 		update_animation()
 	
 	move_and_slide()
+	
+	# Check for player collision to deal damage
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider and collider.name == "Player":
+			if collider.has_method("take_damage"):
+				collider.take_damage(1)
+			if collider.has_method("shake_screen"):
+				collider.shake_screen()
 
 func _on_detection_zone_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
@@ -98,21 +95,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		print("player entered")
 
 func update_health_bar() -> void:
-	if health_bar_sprite:
-		var total_frames = 4
-		if health_bar_sprite is Sprite2D and health_bar_sprite.texture:
-			total_frames = health_bar_sprite.vframes * health_bar_sprite.hframes
-		elif health_bar_sprite is AnimatedSprite2D and health_bar_sprite.sprite_frames:
-			total_frames = health_bar_sprite.sprite_frames.get_frame_count("default")
-			
+	if health_bar_sprite and health_bar_sprite.texture:
+		var total_frames = health_bar_sprite.vframes * health_bar_sprite.hframes
 		var damage_ratio = 1.0 - (float(current_health) / float(max_health))
 		var frame_idx = int(damage_ratio * (total_frames - 1))
-		
-		# Animate or set frame based on node type
-		if health_bar_sprite is AnimatedSprite2D:
-			health_bar_sprite.frame = clamp(frame_idx, 0, total_frames - 1)
-		elif health_bar_sprite is Sprite2D:
-			health_bar_sprite.frame = clamp(frame_idx, 0, total_frames - 1)
+		health_bar_sprite.frame = clamp(frame_idx, 0, total_frames - 1)
 
 func take_damage(amount: int = 1) -> void:
 	current_health -= amount

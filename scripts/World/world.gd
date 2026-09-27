@@ -88,6 +88,17 @@ func _ready() -> void:
 		var player = get_node_or_null("Player")
 		if player:
 			player.mine_time = saved_data["mine_time"]
+			
+	# Fix building in Arena by enforcing the proper World TileSet
+	if get_tree().current_scene.name != "World":
+		var world_scene = load("res://scenes/world/world.tscn")
+		if world_scene:
+			var temp = world_scene.instantiate()
+			var w_blocks = temp.get_node_or_null("Blocks")
+			var local_blocks = get_node_or_null("Blocks")
+			if w_blocks and local_blocks:
+				local_blocks.tile_set = w_blocks.tile_set
+			temp.free()
 		
 	spawn_inventory()
 

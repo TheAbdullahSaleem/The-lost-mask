@@ -39,7 +39,12 @@ func _ready() -> void:
 func sync_health_ui() -> void:
 	get_tree().call_group("inventory_ui", "update_health", current_health, max_health)
 
+var is_invincible: bool = false
+
 func take_damage(amount: int = 1) -> void:
+	if is_invincible:
+		return
+		
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)
 	sync_health_ui()
@@ -47,6 +52,31 @@ func take_damage(amount: int = 1) -> void:
 	if current_health <= 0:
 		# Player death logic can go here
 		print("Player died!")
+	else:
+		# Apply invincibility frames
+		is_invincible = true
+		
+		# Flash red
+		modulate = Color(1, 0, 0, 1)
+		await get_tree().create_timer(0.2).timeout
+		modulate = Color(1, 1, 1, 1)
+		
+		await get_tree().create_timer(0.8).timeout
+		is_invincible = false
+
+func shake_screen(intensity: float = 10.0, duration: float = 0.2) -> void:
+	var cam = get_node_or_null("Camera2D")
+	if not cam:
+		return
+		
+	var original_offset = cam.offset
+	var timer = get_tree().create_timer(duration)
+	
+	while timer.time_left > 0:
+		cam.offset = Vector2(randf_range(-intensity, intensity), randf_range(-intensity, intensity))
+		await get_tree().process_frame
+		
+	cam.offset = original_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("teleport"):
