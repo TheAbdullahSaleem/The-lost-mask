@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://c5orxftslul7y" path="res://assets/sprites/sky/underground.png" id="8_tl6ff"]
 [ext_resource type="Texture2D" uid="uid://mpn7nnlxnf3d" path="res://assets/sprites/sky/clouds.png" id="9_3uu13"]
 [ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="10_x27lm"]
-[ext_resource type="PackedScene" uid="uid://xhfwb0cprnbb" path="res://scenes/Boss/Boss1.tscn" id="11_5bjma"]
 [ext_resource type="PackedScene" uid="uid://c618jh4pt1i6g" path="res://scenes/door/door.tscn" id="13_hnk5l"]
+[ext_resource type="PackedScene" uid="uid://coft2kaom6x6d" path="res://scenes/Boss/Boss2.tscn" id="13_lfq0t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_anfo7"]
 texture = ExtResource("1_57sf1")
@@ -128,19 +128,21 @@ z_index = -1
 position = Vector2(250, -10)
 
 [node name="Player" parent="." unique_id=632287275 instance=ExtResource("10_x27lm")]
-position = Vector2(825, 519)
+position = Vector2(268, 586)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=593380872]
-zoom = Vector2(2.8, 2.8)
+zoom = Vector2(1.8, 1.8)
 limit_left = 35
 limit_top = -398
-limit_right = 1112
+limit_right = 1600
 limit_bottom = 670
 position_smoothing_enabled = true
-
-[node name="Enemy" parent="." unique_id=1559752797 instance=ExtResource("11_5bjma")]
-position = Vector2(1119, 377)
 
 [node name="Door" parent="." unique_id=1248732323 instance=ExtResource("13_hnk5l")]
 position = Vector2(125, 534)
 target_scene_path = "res://scenes/world/world.tscn"
+
+[node name="Enemy" parent="." unique_id=1559752797 instance=ExtResource("13_lfq0t")]
+position = Vector2(978, 370)
+scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true

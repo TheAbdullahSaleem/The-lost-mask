@@ -44,7 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				active_player.shake_screen(15.0, 3.0)
 			active_player = null
 			
-			# Wait for video placeholder
+			# Start video sequence
 			var canvas = CanvasLayer.new()
 			canvas.layer = 120
 			get_tree().current_scene.add_child(canvas)
@@ -54,15 +54,17 @@ func _unhandled_input(event: InputEvent) -> void:
 			bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 			canvas.add_child(bg)
 			
-			var lbl = Label.new()
-			lbl.text = "[ FULLSCREEN VIDEO PLAYS HERE ]"
-			lbl.add_theme_font_size_override("font_size", 48)
-			lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			lbl.set_anchors_preset(Control.PRESET_FULL_RECT)
-			canvas.add_child(lbl)
+			var video = VideoStreamPlayer.new()
+			video.set_anchors_preset(Control.PRESET_FULL_RECT)
+			video.expand = true
+			video.stream = load("res://assets/video/video.ogv")
+			canvas.add_child(video)
 			
-			await get_tree().create_timer(3.0).timeout
+			video.play()
+			
+			# Wait until the video is completely finished playing
+			await video.finished
+			
 			get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _on_body_entered(body: Node2D) -> void:
@@ -73,4 +75,3 @@ func _on_body_exited(body: Node2D) -> void:
 	if body == active_player:
 		active_player = null
 		label.visible = false
-

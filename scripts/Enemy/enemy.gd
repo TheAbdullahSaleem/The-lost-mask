@@ -117,4 +117,3 @@ func take_damage(amount: int = 1) -> void:
 		queue_free() # Defeat boss
 		
 		
-

@@ -1,9 +1,16 @@
-[gd_scene format=3 uid="uid://fiq3gyyte0de"]
+[gd_scene load_steps=4 format=3 uid="uid://fiq3gyyte0de"]
 
 [ext_resource type="Texture2D" uid="uid://b7h60k3famc83" path="res://assets/sprites/others/treasure_closed.png" id="1_m2qmq"]
+[ext_resource type="Script" path="res://scripts/World/treasure.gd" id="2_treasure"]
 
-[node name="Tresure" type="Node2D" unique_id=2065825590]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_treasure"]
+size = Vector2(80, 80)
 
-[node name="closed" type="Sprite2D" parent="." unique_id=1557233807]
+[node name="Tresure" type="Area2D"]
+script = ExtResource("2_treasure")
+
+[node name="closed" type="Sprite2D" parent="."]
 texture = ExtResource("1_m2qmq")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_treasure")
