@@ -72,7 +72,6 @@ const BLOCK_DROP: Dictionary = {
 
 var _active_tiles: Dictionary = {}
 
-
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
 	spawn_inventory()
