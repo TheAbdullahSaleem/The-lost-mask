@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bcymh5pa56215" path="res://scenes/world/crafting_table.tscn" id="8_j2gmx"]
 [ext_resource type="Texture2D" uid="uid://d13misresrvvl" path="res://assets/sprites/Tables/crafting_table_board.png" id="9_1yooq"]
 [ext_resource type="Texture2D" uid="uid://c5orxftslul7y" path="res://assets/sprites/sky/underground.png" id="9_m114p"]
-[ext_resource type="PackedScene" uid="uid://cyy5f86b54y43" path="res://scenes/world/treasure_closed.tscn" id="12_dlabj"]
+[ext_resource type="PackedScene" uid="uid://cyy5f86b54y43" path="res://scenes/world/tresure_closed.tscn" id="12_dlabj"]
 [ext_resource type="Texture2D" uid="uid://c82khjdbxo7cs" path="res://assets/sprites/others/cage.png" id="12_srmg5"]
 [ext_resource type="Texture2D" uid="uid://b54iqu165neo2" path="res://assets/sprites/others/New Piskel.png" id="15_mxkvs"]
 [ext_resource type="PackedScene" uid="uid://xhfwb0cprnbb" path="res://scenes/Boss/Boss1.tscn" id="19_wbwoo"]
