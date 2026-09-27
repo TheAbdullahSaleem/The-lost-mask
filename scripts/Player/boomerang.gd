@@ -29,8 +29,8 @@ func _physics_process(delta: float) -> void:
 	
 	if not returning:
 		t += delta * speed
-		if t >= 1.0:
-			t = 1.0
+		if t >= 0.3:
+			t = 0.3
 			returning = true
 		
 		# Ease out

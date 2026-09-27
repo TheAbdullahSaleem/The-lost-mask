@@ -1,6 +1,6 @@
 extends CharacterBody2D
-@export var speed = 50.0
-@export var max_health: int = 20
+@export var speed = 100.0
+@export var max_health: int = 30
 
 var target :CharacterBody2D = null
 var charging: bool = false
