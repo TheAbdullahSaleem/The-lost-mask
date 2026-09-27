@@ -6,6 +6,8 @@ var static_body: StaticBody2D
 
 var active_player: Node2D = null
 
+
+
 func _ready() -> void:
 
 	# Setup the note label

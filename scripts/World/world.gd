@@ -29,6 +29,8 @@ var item_slot_mapping: Dictionary = {
 	"pickaxe": 5,
 }
 
+var crafted_recipes: Array[String] = [] 
+
 const inventory_scene = preload("res://scenes/Inventory/canvas_layer.tscn")
 const tutorial_scene = preload("res://scenes/UI/tutorial_ui.tscn")
 

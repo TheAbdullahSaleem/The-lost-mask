@@ -84,35 +84,47 @@ func _select(index: int) -> void:
 	_selected = index
 	var recipe: Dictionary = RECIPES[index]
 	feedback_label.text = ""
+	craft_btn.text = "Craft"
 
 	# Icon + name + description
 	icon_rect.texture = load(recipe["icon"])
 	item_name.text = recipe["name"]
 	desc1.text = recipe["desc_line1"]
 	desc2.text = recipe["desc_line2"]
-
-	# Requirements
-	var costs: Array = recipe["cost"].keys()
-	var k0: String = costs[0] if costs.size() > 0 else ""
-	var k1: String = costs[1] if costs.size() > 1 else ""
-	var n0: int = recipe["cost"].get(k0, 0)
-	var n1: int = recipe["cost"].get(k1, 0)
-	var h0: int = world.inventory.get(k0, 0) if world else 0
-	var h1: int = world.inventory.get(k1, 0) if world else 0
-
-	req1.text = "• %d  %s" % [n0, k0.capitalize()]
-	have1.text = "%d / %d" % [h0, n0]
-	have1.modulate = Color(0.18, 0.58, 0.22, 1) if h0 >= n0 else Color(0.80, 0.15, 0.15, 1)
-
-	if k1 != "":
-		req2.text = "• %d  %s" % [n1, k1.capitalize()]
-		have2.text = "%d / %d" % [h1, n1]
-		have2.modulate = Color(0.18, 0.58, 0.22, 1) if h1 >= n1 else Color(0.80, 0.15, 0.15, 1)
-		req2.visible = true
-		have2.visible = true
-	else:
+	
+	# Check if already crafted
+	var is_crafted: bool = world != null and recipe["id"] in world.crafted_recipes
+	
+	if is_crafted:
+		req1.text = "Already crafted"
+		have1.text = ""
 		req2.text = ""
 		have2.text = ""
+		craft_btn.disabled = true
+		craft_btn.text = "Crafted"
+	else:
+		# Requirements
+		var costs: Array = recipe["cost"].keys()
+		var k0: String = costs[0] if costs.size() > 0 else ""
+		var k1: String = costs[1] if costs.size() > 1 else ""
+		var n0: int = recipe["cost"].get(k0, 0)
+		var n1: int = recipe["cost"].get(k1, 0)
+		var h0: int = world.inventory.get(k0, 0) if world else 0
+		var h1: int = world.inventory.get(k1, 0) if world else 0
+
+		req1.text = "• %d  %s" % [n0, k0.capitalize()]
+		have1.text = "%d / %d" % [h0, n0]
+		have1.modulate = Color(0.18, 0.58, 0.22, 1) if h0 >= n0 else Color(0.80, 0.15, 0.15, 1)
+
+		if k1 != "":
+			req2.text = "• %d  %s" % [n1, k1.capitalize()]
+			have2.text = "%d / %d" % [h1, n1]
+			have2.modulate = Color(0.18, 0.58, 0.22, 1) if h1 >= n1 else Color(0.80, 0.15, 0.15, 1)
+			req2.visible = true
+			have2.visible = true
+		else:
+			req2.text = ""
+			have2.text = ""
 
 	# Toggle button states for styling
 	for i in range(_recipe_buttons.size()):
@@ -136,6 +148,10 @@ func _can_afford(cost: Dictionary) -> bool:
 
 func _on_craft_pressed() -> void:
 	var recipe: Dictionary = RECIPES[_selected]
+	
+	if world != null and recipe["id"] in world.crafted_recipes:
+		return
+		
 	if not _can_afford(recipe["cost"]):
 		return
 
@@ -161,7 +177,11 @@ func _on_craft_pressed() -> void:
 			world.change_inventory_item(recipe["result_value"], 1)
 			feedback_label.text = "✓ %s added to inventory!" % recipe["name"]
 			feedback_label.modulate = Color(0.18, 0.58, 0.22, 1)
-
+	
+	# Mark as crafted in world script
+	if world != null:
+		world.crafted_recipes.append(recipe["id"])
+	
 	# Refresh UI to show updated counts
 	_select(_selected)
 
