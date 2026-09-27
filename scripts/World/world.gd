@@ -121,7 +121,6 @@ func place_block(mouse_global_pos: Vector2) -> void:
 		await get_tree().create_timer(break_time).timeout
 		mine_tile(tile_coords, "down")
 
-
 # ── Mining API ────────────────────────────────────────────────────────────────
 func is_mineable(tile_coords: Vector2i) -> bool:
 	var source_id: int = blocks.get_cell_source_id(tile_coords)

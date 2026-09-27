@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://c483aa5utnff1"]
+
+[node name="Progressbar" type="TextureProgressBar" unique_id=816367820]
