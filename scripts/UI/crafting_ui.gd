@@ -162,7 +162,7 @@ func _on_craft_pressed() -> void:
 	# Apply effect
 	match recipe["result_type"]:
 		"pickaxe_upgrade":
-			var player = world.get_node_or_null("Player2")
+			var player = world.get_node_or_null("Player")
 			if player:
 				player.mine_time = recipe["result_value"]
 			

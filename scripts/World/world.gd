@@ -74,7 +74,6 @@ const BLOCK_DROP: Dictionary = {
 
 var _active_tiles: Dictionary = {}
 @export var autobreaking: bool = false
-var break_timer: Timer = Timer.new()
 @export var break_time: float = 3
 @export var tutorial: bool = true
 
@@ -119,9 +118,7 @@ func place_block(mouse_global_pos: Vector2) -> void:
 		# Deduct from inventory
 		change_inventory_item(selected_item_name, -1)
 	if autobreaking:
-		add_child(break_timer)
-		break_timer.start(break_time)
-		await break_timer.timeout
+		await get_tree().create_timer(break_time).timeout
 		mine_tile(tile_coords, "down")
 
 
