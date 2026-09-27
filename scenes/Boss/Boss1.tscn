@@ -46,7 +46,7 @@ region = Rect2(150, 300, 150, 150)
 atlas = ExtResource("2_dyr60")
 region = Rect2(300, 300, 150, 150)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fqer1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hn8cs"]
 atlas = ExtResource("3_2pl7j")
 region = Rect2(0, 0, 150, 150)
 
@@ -110,7 +110,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fqer1")
+"texture": SubResource("AtlasTexture_hn8cs")
 }],
 "loop": 0,
 "name": &"idle",
@@ -254,7 +254,8 @@ shape = SubResource("RectangleShape2D_nl1qf")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=622945265]
 sprite_frames = SubResource("SpriteFrames_h7o6m")
-animation = &"idle"
+animation = &"left"
+frame_progress = 0.87866384
 
 [node name="Detection Zone" type="Area2D" parent="." unique_id=1502169117]
 

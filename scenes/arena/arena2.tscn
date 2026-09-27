@@ -1,49 +1,49 @@
-[gd_scene format=4 uid="uid://bmpj481iaitne"]
+[gd_scene format=4 uid="uid://osfkxr66xp4q"]
 
-[ext_resource type="Texture2D" uid="uid://djck6gnpu8mdw" path="res://assets/sprites/dirt/dirt.png" id="1_hpmcm"]
-[ext_resource type="Texture2D" uid="uid://cpwoqutbljmnp" path="res://assets/sprites/charcoal/charcoal.png" id="2_voaht"]
-[ext_resource type="Texture2D" uid="uid://p84un4sqefjj" path="res://assets/sprites/iron/iron.png" id="3_7upqn"]
-[ext_resource type="Texture2D" uid="uid://cqtjels4rqoc2" path="res://assets/sprites/stone/stone.png" id="4_gludx"]
-[ext_resource type="Texture2D" uid="uid://cpbfuk32p3boa" path="res://assets/sprites/dirt/grass.png" id="5_ybjau"]
-[ext_resource type="Texture2D" uid="uid://dlqi2p3njcyqo" path="res://assets/sprites/diamond/diamond.png" id="6_ylnwm"]
-[ext_resource type="Texture2D" uid="uid://dwhi6o5kuq57r" path="res://assets/sprites/sky/sky.png" id="7_ybjau"]
-[ext_resource type="Texture2D" uid="uid://c5orxftslul7y" path="res://assets/sprites/sky/underground.png" id="8_ylnwm"]
-[ext_resource type="Texture2D" uid="uid://mpn7nnlxnf3d" path="res://assets/sprites/sky/clouds.png" id="9_anfo7"]
-[ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="10_c55h2"]
-[ext_resource type="PackedScene" uid="uid://xhfwb0cprnbb" path="res://scenes/Boss/Boss1.tscn" id="11_ylnwm"]
+[ext_resource type="Texture2D" uid="uid://djck6gnpu8mdw" path="res://assets/sprites/dirt/dirt.png" id="1_57sf1"]
+[ext_resource type="Texture2D" uid="uid://cpwoqutbljmnp" path="res://assets/sprites/charcoal/charcoal.png" id="2_4fbtf"]
+[ext_resource type="Texture2D" uid="uid://p84un4sqefjj" path="res://assets/sprites/iron/iron.png" id="3_lfq0t"]
+[ext_resource type="Texture2D" uid="uid://cqtjels4rqoc2" path="res://assets/sprites/stone/stone.png" id="4_hnk5l"]
+[ext_resource type="Texture2D" uid="uid://cpbfuk32p3boa" path="res://assets/sprites/dirt/grass.png" id="5_flmmj"]
+[ext_resource type="Texture2D" uid="uid://dlqi2p3njcyqo" path="res://assets/sprites/diamond/diamond.png" id="6_8mqc1"]
+[ext_resource type="Texture2D" uid="uid://dwhi6o5kuq57r" path="res://assets/sprites/sky/sky.png" id="7_4xlc4"]
+[ext_resource type="Texture2D" uid="uid://c5orxftslul7y" path="res://assets/sprites/sky/underground.png" id="8_tl6ff"]
+[ext_resource type="Texture2D" uid="uid://mpn7nnlxnf3d" path="res://assets/sprites/sky/clouds.png" id="9_3uu13"]
+[ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="10_x27lm"]
+[ext_resource type="PackedScene" uid="uid://xhfwb0cprnbb" path="res://scenes/Boss/Boss1.tscn" id="11_5bjma"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_anfo7"]
-texture = ExtResource("1_hpmcm")
+texture = ExtResource("1_57sf1")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c55h2"]
-texture = ExtResource("2_voaht")
+texture = ExtResource("2_4fbtf")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fjbll"]
-texture = ExtResource("3_7upqn")
+texture = ExtResource("3_lfq0t")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ijcsf"]
-texture = ExtResource("4_gludx")
+texture = ExtResource("4_hnk5l")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ieke"]
-texture = ExtResource("5_ybjau")
+texture = ExtResource("5_flmmj")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e1vbk"]
-texture = ExtResource("6_ylnwm")
+texture = ExtResource("6_8mqc1")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -59,7 +59,7 @@ sources/4 = SubResource("TileSetAtlasSource_4ieke")
 sources/5 = SubResource("TileSetAtlasSource_e1vbk")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1co46"]
-texture = ExtResource("7_ybjau")
+texture = ExtResource("7_4xlc4")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/z_index = -1
@@ -68,7 +68,7 @@ texture_region_size = Vector2i(32, 32)
 1:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7noq4"]
-texture = ExtResource("8_ylnwm")
+texture = ExtResource("8_tl6ff")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -81,7 +81,7 @@ sources/0 = SubResource("TileSetAtlasSource_1co46")
 sources/1 = SubResource("TileSetAtlasSource_7noq4")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jnb1n"]
-texture = ExtResource("9_anfo7")
+texture = ExtResource("9_3uu13")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/z_index = -1
@@ -121,7 +121,7 @@ tile_set = SubResource("TileSet_ntmfq")
 z_index = -1
 position = Vector2(250, -10)
 
-[node name="Player" parent="." unique_id=632287275 instance=ExtResource("10_c55h2")]
+[node name="Player" parent="." unique_id=632287275 instance=ExtResource("10_x27lm")]
 position = Vector2(190, 593)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=593380872]
@@ -132,5 +132,5 @@ limit_right = 1112
 limit_bottom = 670
 position_smoothing_enabled = true
 
-[node name="Enemy" parent="." unique_id=1559752797 instance=ExtResource("11_ylnwm")]
+[node name="Enemy" parent="." unique_id=1559752797 instance=ExtResource("11_5bjma")]
 position = Vector2(905, 372)
