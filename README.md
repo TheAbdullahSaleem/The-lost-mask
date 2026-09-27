@@ -60,8 +60,8 @@ If you want to download the source code and run the game yourself:
 
 ## 📜 Credits
 
-* **Art & Animation:** Hand-drawn by [Your Name / Team Name]
-* **Programming:** [Your Name / Team Name]
+* **Art & Animation:** Hand-drawn by Taha Faisal
+* **Programming:** Hasaan Khilji & Abdullah Saleem
 * **Engine:** Built with Godot 4
 
-*(Play the game directly in your browser on Itch.io here: [Insert Link])*
+*(Play the game directly in your browser on Itch.io here: https://tahafaisal.itch.io/the-lost-mask)*
