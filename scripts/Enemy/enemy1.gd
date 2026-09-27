@@ -6,6 +6,8 @@ var started: bool = false
 
 @onready var bossanim: AnimatedSprite2D = $Sprite2D
 @onready var chargeanim: AnimatedSprite2D = $charge
+@onready var Player: CharacterBody2D = $"../Player"
+@onready var Blocks: TileMapLayer = $"../Blocks"
 
 func _ready():
 	var spawntimer = Timer.new()

@@ -1,0 +1,83 @@
+[gd_scene format=4 uid="uid://djxvyd2nb0u0o"]
+
+[ext_resource type="Script" uid="uid://5iypsqd4pq6e" path="res://scripts/World/world.gd" id="1_bqwas"]
+[ext_resource type="Texture2D" uid="uid://djck6gnpu8mdw" path="res://assets/sprites/dirt/dirt.png" id="2_hlvwe"]
+[ext_resource type="Texture2D" uid="uid://cpwoqutbljmnp" path="res://assets/sprites/charcoal/charcoal.png" id="3_71lf2"]
+[ext_resource type="Texture2D" uid="uid://p84un4sqefjj" path="res://assets/sprites/iron/iron.png" id="4_8kls5"]
+[ext_resource type="Texture2D" uid="uid://cqtjels4rqoc2" path="res://assets/sprites/stone/stone.png" id="5_8fc3e"]
+[ext_resource type="Texture2D" uid="uid://cpbfuk32p3boa" path="res://assets/sprites/dirt/grass.png" id="6_yvhw7"]
+[ext_resource type="Texture2D" uid="uid://dlqi2p3njcyqo" path="res://assets/sprites/diamond/diamond.png" id="7_fmqjr"]
+[ext_resource type="PackedScene" uid="uid://xhfwb0cprnbb" path="res://scenes/Boss/Boss1.tscn" id="8_wd1r4"]
+[ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="9_6jpuw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hoya2"]
+texture = ExtResource("2_hlvwe")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_grx42"]
+texture = ExtResource("3_71lf2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hc1pl"]
+texture = ExtResource("4_8kls5")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hf8de"]
+texture = ExtResource("5_8fc3e")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7jgsd"]
+texture = ExtResource("6_yvhw7")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iqpss"]
+texture = ExtResource("7_fmqjr")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_0udd5"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_hoya2")
+sources/1 = SubResource("TileSetAtlasSource_grx42")
+sources/2 = SubResource("TileSetAtlasSource_hc1pl")
+sources/3 = SubResource("TileSetAtlasSource_hf8de")
+sources/4 = SubResource("TileSetAtlasSource_7jgsd")
+sources/5 = SubResource("TileSetAtlasSource_iqpss")
+
+[node name="Boss1Arena" type="Node2D" unique_id=1517804110]
+script = ExtResource("1_bqwas")
+autobreaking = true
+break_time = 2.0
+tutorial = false
+
+[node name="Blocks" type="TileMapLayer" parent="." unique_id=2044446470]
+tile_map_data = PackedByteArray("AAADAAIAAwAAAAAAAAAEAAIAAwAAAAAAAAAFAAIAAwAAAAAAAAAGAAIAAwAAAAAAAAAHAAIAAwAAAAAAAAAIAAIAAwAAAAAAAAAJAAIAAwAAAAAAAAAKAAIAAwAAAAAAAAALAAIAAwAAAAAAAAAMAAIAAwAAAAAAAAANAAIAAwAAAAAAAAAOAAIAAwAAAAAAAAAPAAIAAwAAAAAAAAAQAAIAAwAAAAAAAAARAAIAAwAAAAAAAAACAAIAAwAAAAAAAAACAPr/AwAAAAAAAAACAPv/AwAAAAAAAAACAPz/AwAAAAAAAAACAP3/AwAAAAAAAAACAP7/AwAAAAAAAAACAP//AwAAAAAAAAACAAAAAwAAAAAAAAACAAEAAwAAAAAAAAASAAIAAwAAAAAAAAATAAIAAwAAAAAAAAAUAAIAAwAAAAAAAAAVAAIAAwAAAAAAAAAWAAIAAwAAAAAAAAAXAAIAAwAAAAAAAAAYAAIAAwAAAAAAAAAZAAIAAwAAAAAAAAAaAAIAAwAAAAAAAAAbAAIAAwAAAAAAAAAcAAIAAwAAAAAAAAAdAAIAAwAAAAAAAAAeAAIAAwAAAAAAAAAfAAIAAwAAAAAAAAAgAAIAAwAAAAAAAAAhAAIAAwAAAAAAAAAiAAIAAwAAAAAAAAACAPT/AwAAAAAAAAACAPX/AwAAAAAAAAACAPb/AwAAAAAAAAACAPf/AwAAAAAAAAACAPj/AwAAAAAAAAACAPn/AwAAAAAAAAACAPP/AwAAAAAAAAADAPP/AwAAAAAAAAAEAPP/AwAAAAAAAAAFAPP/AwAAAAAAAAAGAPP/AwAAAAAAAAAHAPP/AwAAAAAAAAAIAPP/AwAAAAAAAAAJAPP/AwAAAAAAAAAKAPP/AwAAAAAAAAALAPP/AwAAAAAAAAAMAPP/AwAAAAAAAAANAPP/AwAAAAAAAAAOAPP/AwAAAAAAAAAPAPP/AwAAAAAAAAAQAPP/AwAAAAAAAAARAPP/AwAAAAAAAAASAPP/AwAAAAAAAAATAPP/AwAAAAAAAAAUAPP/AwAAAAAAAAAVAPP/AwAAAAAAAAAWAPP/AwAAAAAAAAAXAPP/AwAAAAAAAAAYAPP/AwAAAAAAAAAZAPP/AwAAAAAAAAAaAPP/AwAAAAAAAAAbAPP/AwAAAAAAAAAcAPP/AwAAAAAAAAAdAPP/AwAAAAAAAAAeAPP/AwAAAAAAAAAfAPP/AwAAAAAAAAAgAPP/AwAAAAAAAAAhAPP/AwAAAAAAAAAiAPP/AwAAAAAAAAAjAPP/AwAAAAAAAAAjAPT/AwAAAAAAAAAjAPX/AwAAAAAAAAAjAPb/AwAAAAAAAAAjAPf/AwAAAAAAAAAjAPj/AwAAAAAAAAAjAPn/AwAAAAAAAAAjAPr/AwAAAAAAAAAjAPv/AwAAAAAAAAAjAPz/AwAAAAAAAAAjAP3/AwAAAAAAAAAjAP7/AwAAAAAAAAAjAP//AwAAAAAAAAAjAAAAAwAAAAAAAAAjAAEAAwAAAAAAAAAjAAIAAwAAAAAAAAAFAP//BAAAAAAAAAAFAAAABAAAAAAAAAAFAAEABAAAAAAAAAAGAP//BAAAAAAAAAAGAAAABAAAAAAAAAAGAAEABAAAAAAAAAAHAP//BAAAAAAAAAAHAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAP//BAAAAAAAAAAIAAAABAAAAAAAAAAIAAEABAAAAAAAAAA=")
+tile_set = SubResource("TileSet_0udd5")
+
+[node name="Enemy" parent="." unique_id=1559752797 instance=ExtResource("8_wd1r4")]
+position = Vector2(1085, -55)
+scale = Vector2(0.5, 0.5)
+
+[node name="Player" parent="." unique_id=632287275 instance=ExtResource("9_6jpuw")]
+z_index = 20
+position = Vector2(434, 48)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1382190587]
+zoom = Vector2(2.8, 2.8)
+limit_left = 100
+limit_top = -350
+limit_right = 1110
+limit_bottom = 1600
+position_smoothing_enabled = true
