@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://8x6n735n5dp5"]
+
+[ext_resource type="Texture2D" uid="uid://co5pd54hecqhl" path="res://assets/sprites/others/dynamite.png" id="1_f1x53"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dedd1"]
+atlas = ExtResource("1_f1x53")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7o6m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dedd1")
+}],
+"loop": 1,
+"name": &"throw",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h7o6m"]
+radius = 22.090721
+
+[node name="StonePickaxe" type="AnimatedSprite2D" unique_id=1669126763]
+sprite_frames = SubResource("SpriteFrames_h7o6m")
+animation = &"throw"
+frame_progress = 0.57919294
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1695668437]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=545784224]
+shape = SubResource("CircleShape2D_h7o6m")

@@ -3,8 +3,9 @@ extends CanvasLayer
 var messages: Array[String] = [
 	"⛏️ Use Left Click to mine blocks",
 	"🧱 Use Right Click to place selected blocks",
-	"Use numbers 1-6 or scroll wheel to select items",
-	"Press Tab to teleport back to the surface"
+	"Buttons 1-8 or scroll wheel to select items",
+	"Press Tab to teleport back to the surface",
+	"Q to shoot"
 ]
 
 @onready var label: Label = $MarginContainer/Label

@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://chicyamu5nt5f"]
+[gd_scene format=3 uid="uid://c483aa5utnff1"]
 
 [ext_resource type="Texture2D" uid="uid://bd33l8fi5jahn" path="res://assets/sprites/others/progress_bar_track.png" id="1_xn20a"]
 [ext_resource type="Script" uid="uid://dpdxljlllew2e" path="res://scripts/progressbar/progressbar.gd" id="2_3ljyu"]
 
 [node name="Sprite2D" type="Sprite2D" unique_id=926927072]
+scale = Vector2(5, 5)
 texture = ExtResource("1_xn20a")
 hframes = 10
 vframes = 2

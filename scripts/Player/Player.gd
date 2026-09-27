@@ -65,7 +65,48 @@ func _unhandled_input(event: InputEvent) -> void:
 					
 				if Vector2(tile).distance_to(Vector2(player_tile)) <= mine_reach:
 					world.place_block(get_global_mouse_position())
+	elif event is InputEventKey and event.keycode == KEY_Q and event.pressed and not event.echo:
+		throw_pickaxe()
 
+var active_boomerang: Node2D = null
+
+func throw_pickaxe() -> void:
+	if is_instance_valid(active_boomerang):
+		return # Cannot throw again until the pickaxe returns
+		
+	var world = get_parent()
+	var scene_path = "res://assets/sprites/weapon/stone pickaxe.tscn" # Default
+	
+	# Determine which pickaxe the player has equipped
+	if world and "inventory_material" in world:
+		var pickaxe_tex = world.inventory_material.get("pickaxe")
+		if pickaxe_tex and pickaxe_tex.resource_path:
+			if "diamond" in pickaxe_tex.resource_path.to_lower():
+				scene_path = "res://assets/sprites/weapon/diamond pickaxe.tscn"
+			elif "iron" in pickaxe_tex.resource_path.to_lower():
+				scene_path = "res://assets/sprites/weapon/iron pickaxe.tscn"
+				
+	# Load the correct custom weapon scene
+	var weapon_scene = load(scene_path)
+	if not weapon_scene:
+		return
+	var boomerang = weapon_scene.instantiate()
+	active_boomerang = boomerang
+	
+	# Attach the new boomerang script
+	var script = load("res://scripts/Player/boomerang.gd")
+	boomerang.set_script(script)
+	
+	# Add it to the world (parent of player)
+	if world:
+		world.add_child(boomerang)
+		
+		# Calculate throw target (e.g. 300 pixels towards mouse)
+		var throw_dir = global_position.direction_to(get_global_mouse_position())
+		var target_pos = global_position + throw_dir * 300.0
+		
+		# Initialize the boomerang (using call for dynamic script safety)
+		boomerang.call("throw", self, target_pos)
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)

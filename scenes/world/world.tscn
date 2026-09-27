@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://csxgtntb58uxs" path="res://scenes/Player/Player.tscn" id="1_umvgx"]
 [ext_resource type="Texture2D" uid="uid://cpwoqutbljmnp" path="res://assets/sprites/charcoal/charcoal.png" id="2_v5dby"]
 [ext_resource type="Texture2D" uid="uid://p84un4sqefjj" path="res://assets/sprites/iron/iron.png" id="3_t5ptc"]
-[ext_resource type="PackedScene" uid="uid://chicyamu5nt5f" path="res://scenes/progressbar/progressbar.tscn" id="3_tytul"]
 [ext_resource type="Texture2D" uid="uid://cqtjels4rqoc2" path="res://assets/sprites/stone/stone.png" id="4_bq33v"]
 [ext_resource type="PackedScene" uid="uid://ddk0lce4ih7l0" path="res://scenes/door/door2.tscn" id="4_t634p"]
 [ext_resource type="Texture2D" uid="uid://cpbfuk32p3boa" path="res://assets/sprites/dirt/grass.png" id="5_gb53w"]
@@ -118,14 +117,8 @@ script = ExtResource("1_mxkvs")
 z_index = 20
 position = Vector2(434, 48)
 
-[node name="Sprite2D" parent="Player" unique_id=926927072 node_paths=PackedStringArray("player", "target") instance=ExtResource("3_tytul")]
-position = Vector2(-170, 5)
-player = NodePath("..")
-target = NodePath("../../Door")
-min_detect_distance = 50.0
-max_detect_distance = 2000.0
-
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2039750525]
+scale = Vector2(0.5, 0.5)
 zoom = Vector2(2.8, 2.8)
 limit_left = 100
 limit_top = -350
@@ -134,8 +127,8 @@ limit_bottom = 4070
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
-[node name="Door" parent="Player" unique_id=1248732323 instance=ExtResource("4_t634p")]
-position = Vector2(183, 3939)
+[node name="Door" parent="." unique_id=484507256 instance=ExtResource("19_wbwoo")]
+position = Vector2(606, 1843.0001)
 scale = Vector2(0.6, 0.6)
 
 [node name="Blocks" type="TileMapLayer" parent="." unique_id=776222821]
@@ -208,6 +201,6 @@ z_index = -1
 position = Vector2(256, -11)
 texture = ExtResource("15_mxkvs")
 
-[node name="Door" parent="." unique_id=484507256 instance=ExtResource("19_wbwoo")]
-position = Vector2(592, 1843)
+[node name="Door2" parent="." unique_id=1248732323 instance=ExtResource("4_t634p")]
+position = Vector2(617, 3987)
 scale = Vector2(0.6, 0.6)

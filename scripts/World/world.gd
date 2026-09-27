@@ -79,12 +79,39 @@ var _active_tiles: Dictionary = {}
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
+	# Load persisted inventory if available
+	if Global.is_initialized:
+		var saved_data = Global.load_inventory()
+		inventory = saved_data["inventory"]
+		inventory_material = saved_data["inventory_material"]
+		
+		var player = get_node_or_null("Player")
+		if player:
+			player.mine_time = saved_data["mine_time"]
+		
 	spawn_inventory()
+
+	# Manually refresh all inventory slots to reflect loaded blocks
+	for item_name in inventory.keys():
+		if item_slot_mapping.has(item_name) and inventory_material.has(item_name):
+			var slot_id = item_slot_mapping[item_name]
+			var count = inventory[item_name]
+			var tex = inventory_material[item_name]
+			get_tree().call_group("inventory_ui", "update_slot_ui", slot_id, tex, count)
 	
 	# Spawn tutorial broadcast UI
 	if tutorial:
 		var tutorial_instance = tutorial_scene.instantiate()
 		add_child(tutorial_instance)
+
+func _exit_tree() -> void:
+	# Save inventory state when leaving the scene
+	var current_mine_time: float = 0.5
+	var player = get_node_or_null("Player")
+	if player:
+		current_mine_time = player.mine_time
+		
+	Global.save_inventory(inventory, inventory_material, current_mine_time)
 
 # ── Placing API ───────────────────────────────────────────────────────────────
 func place_block(mouse_global_pos: Vector2) -> void:

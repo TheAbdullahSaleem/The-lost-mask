@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var inventorybox: Control = $MarginContainer/inventorybox
 
-var max_slots: int = 6
+var max_slots: int = 8
 var active_slot_index: int = 0
 
 func _ready() -> void:

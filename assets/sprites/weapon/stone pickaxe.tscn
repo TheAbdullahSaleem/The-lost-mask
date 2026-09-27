@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://6f6sgjm8q0jj"]
+
+[ext_resource type="Texture2D" uid="uid://tolb2uqpvwn8" path="res://assets/sprites/others/diamond_pickaxe_throw (3).png" id="1_ighuy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlfkn"]
+atlas = ExtResource("1_ighuy")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a55ku"]
+atlas = ExtResource("1_ighuy")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc1a8"]
+atlas = ExtResource("1_ighuy")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ifbr"]
+atlas = ExtResource("1_ighuy")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7o6m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlfkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a55ku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc1a8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ifbr")
+}],
+"loop": 1,
+"name": &"throw",
+"speed": 4.5
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h7o6m"]
+radius = 20.22375
+
+[node name="StonePickaxe" type="AnimatedSprite2D" unique_id=640198728]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_h7o6m")
+animation = &"throw"
+frame_progress = 0.09793851
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1546520040]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1103397537]
+shape = SubResource("CircleShape2D_h7o6m")
