@@ -68,7 +68,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		active_player = body
-		label.visible = true
 
 func _on_body_exited(body: Node2D) -> void:
 	if body == active_player:

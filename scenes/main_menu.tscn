@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://mainmenu12345"]
+[gd_scene format=3 uid="uid://oa1t7v4dhhuu"]
 
-[ext_resource type="Script" uid="uid://somemenu1" path="res://scripts/main_menu.gd" id="1_menu"]
+[ext_resource type="Script" uid="uid://c860mt48g5pyw" path="res://scripts/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://dxhovyh5kwtao" path="res://assets/sprites/others/menu_bg.png" id="2_ekxnf"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1210012946]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,17 +12,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_menu")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1407902637]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_ekxnf")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="ColorRectFallback" type="ColorRect" parent="Background"]
+[node name="ColorRectFallback" type="ColorRect" parent="Background" unique_id=263022294]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -31,33 +33,31 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.12, 0.12, 0.12, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1648241564]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -50.0
-offset_right = 100.0
-offset_bottom = 50.0
+offset_left = -150.0
+offset_top = 30.0
+offset_right = 150.0
+offset_bottom = 180.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=318727822]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "THE LOST MASK"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1462540358]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "PLAY"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1613042898]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "QUIT"
+

@@ -94,24 +94,47 @@ func die() -> void:
 	canvas.add_child(label)
 	
 	# Create a container for the buttons
+	var center = CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.modulate.a = 0
+	canvas.add_child(center)
+	
 	var vbox = VBoxContainer.new()
-	vbox.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	vbox.position = Vector2(1152 / 2.0 - 100, 648 - 200) # Centered horizontally, near bottom
-	vbox.custom_minimum_size = Vector2(200, 100)
-	vbox.add_theme_constant_override("separation", 20)
-	vbox.modulate.a = 0
-	canvas.add_child(vbox)
+	vbox.custom_minimum_size = Vector2(300, 100)
+	vbox.add_theme_constant_override("separation", 30)
+	center.add_child(vbox)
+	
+	# Button styles
+	var normal_style = StyleBoxFlat.new()
+	normal_style.bg_color = Color(0.12, 0.12, 0.12, 0.95)
+	normal_style.border_color = Color(0.8, 0.2, 0.2, 1.0)
+	normal_style.border_width_bottom = 4
+	normal_style.border_width_top = 4
+	normal_style.border_width_left = 4
+	normal_style.border_width_right = 4
+	normal_style.set_corner_radius_all(10)
+	normal_style.content_margin_top = 10
+	normal_style.content_margin_bottom = 10
+	
+	var hover_style = normal_style.duplicate()
+	hover_style.bg_color = Color(0.25, 0.15, 0.15, 0.95)
 	
 	# Create Restart button
 	var btn_restart = Button.new()
 	btn_restart.text = "Restart"
-	btn_restart.add_theme_font_size_override("font_size", 32)
+	btn_restart.add_theme_font_size_override("font_size", 36)
+	btn_restart.add_theme_stylebox_override("normal", normal_style)
+	btn_restart.add_theme_stylebox_override("hover", hover_style)
+	btn_restart.add_theme_stylebox_override("pressed", normal_style)
 	vbox.add_child(btn_restart)
 	
 	# Create Main Menu button
 	var btn_menu = Button.new()
 	btn_menu.text = "Main Menu"
-	btn_menu.add_theme_font_size_override("font_size", 32)
+	btn_menu.add_theme_font_size_override("font_size", 36)
+	btn_menu.add_theme_stylebox_override("normal", normal_style)
+	btn_menu.add_theme_stylebox_override("hover", hover_style)
+	btn_menu.add_theme_stylebox_override("pressed", normal_style)
 	vbox.add_child(btn_menu)
 	
 	# Handle button clicks
@@ -125,11 +148,21 @@ func die() -> void:
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	)
 	
-	# Fade everything in using a Tween
+	# Cinematic Sequence using Tweens
 	var tween = create_tween()
+	# 1. Fade to black background and fade in "YOU DIED."
 	tween.tween_property(bg, "color:a", 1.0, 2.0)
-	tween.tween_property(label, "modulate:a", 1.0, 1.0)
-	tween.tween_property(vbox, "modulate:a", 1.0, 1.0)
+	tween.parallel().tween_property(label, "modulate:a", 1.0, 1.0)
+	
+	# 2. Wait 2 seconds
+	tween.tween_interval(2.0)
+	
+	# 3. Fade out "YOU DIED." text
+	tween.tween_property(label, "modulate:a", 0.0, 1.5)
+	
+	# 4. Wait half a second, then fade in buttons
+	tween.tween_interval(0.5)
+	tween.tween_property(center, "modulate:a", 1.0, 1.5)
 
 func shake_screen(intensity: float = 10.0, duration: float = 0.2) -> void:
 	var cam = get_node_or_null("Camera2D")

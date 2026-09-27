@@ -60,8 +60,14 @@ func transition_to_arena() -> void:
 		var tween = create_tween()
 		tween.tween_property(color_rect, "color:a", 1.0, 1.0)
 		
-		# 4. Wait for the fade to finish, then change scenes!
+		# 4. Wait for the fade to finish, then save and change scenes!
 		await tween.finished
+		
+		# Force save the current world state BEFORE loading the new scene!
+		var world = get_tree().current_scene
+		if world and world.has_method("force_save"):
+			world.force_save()
+			
 		get_tree().change_scene_to_file(target_scene_path)
 	
 func _on_body_entered(body: Node2D) -> void:

@@ -126,7 +126,10 @@ func _ready() -> void:
 		add_child(tutorial_instance)
 
 func _exit_tree() -> void:
-	# Save inventory state when leaving the scene
+	force_save()
+
+func force_save() -> void:
+	# Save inventory state before leaving the scene
 	var current_mine_time: float = 0.5
 	var player = get_node_or_null("Player")
 	if player:
