@@ -40,9 +40,10 @@ func sync_health_ui() -> void:
 	get_tree().call_group("inventory_ui", "update_health", current_health, max_health)
 
 var is_invincible: bool = false
+var is_dead: bool = false
 
 func take_damage(amount: int = 1) -> void:
-	if is_invincible:
+	if is_invincible or is_dead:
 		return
 		
 	current_health -= amount
@@ -50,8 +51,7 @@ func take_damage(amount: int = 1) -> void:
 	sync_health_ui()
 	
 	if current_health <= 0:
-		# Player death logic can go here
-		print("Player died!")
+		die()
 	else:
 		# Apply invincibility frames
 		is_invincible = true
@@ -63,6 +63,73 @@ func take_damage(amount: int = 1) -> void:
 		
 		await get_tree().create_timer(0.8).timeout
 		is_invincible = false
+
+func die() -> void:
+	if is_dead: return
+	is_dead = true
+	# Stop the player from moving
+	set_physics_process(false)
+	set_process_unhandled_input(false)
+	
+	# Create a CanvasLayer so the death screen is on top of everything
+	var canvas = CanvasLayer.new()
+	canvas.layer = 120
+	get_tree().current_scene.add_child(canvas)
+	
+	# Create a black background
+	var bg = ColorRect.new()
+	bg.color = Color(0, 0, 0, 0)
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	canvas.add_child(bg)
+	
+	# Create the YOU DIED text
+	var label = Label.new()
+	label.text = "YOU DIED."
+	label.add_theme_color_override("font_color", Color(0.8, 0, 0, 1))
+	label.add_theme_font_size_override("font_size", 72)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	label.modulate.a = 0
+	canvas.add_child(label)
+	
+	# Create a container for the buttons
+	var vbox = VBoxContainer.new()
+	vbox.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	vbox.position = Vector2(1152 / 2.0 - 100, 648 - 200) # Centered horizontally, near bottom
+	vbox.custom_minimum_size = Vector2(200, 100)
+	vbox.add_theme_constant_override("separation", 20)
+	vbox.modulate.a = 0
+	canvas.add_child(vbox)
+	
+	# Create Restart button
+	var btn_restart = Button.new()
+	btn_restart.text = "Restart"
+	btn_restart.add_theme_font_size_override("font_size", 32)
+	vbox.add_child(btn_restart)
+	
+	# Create Main Menu button
+	var btn_menu = Button.new()
+	btn_menu.text = "Main Menu"
+	btn_menu.add_theme_font_size_override("font_size", 32)
+	vbox.add_child(btn_menu)
+	
+	# Handle button clicks
+	btn_restart.pressed.connect(func():
+		Global.is_initialized = false # Reset inventory and upgrades
+		get_tree().change_scene_to_file("res://scenes/world/world.tscn")
+	)
+	
+	btn_menu.pressed.connect(func():
+		Global.is_initialized = false
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	)
+	
+	# Fade everything in using a Tween
+	var tween = create_tween()
+	tween.tween_property(bg, "color:a", 1.0, 2.0)
+	tween.tween_property(label, "modulate:a", 1.0, 1.0)
+	tween.tween_property(vbox, "modulate:a", 1.0, 1.0)
 
 func shake_screen(intensity: float = 10.0, duration: float = 0.2) -> void:
 	var cam = get_node_or_null("Camera2D")
@@ -207,10 +274,23 @@ func update_pickaxe() -> void:
 		_target_tile = Vector2i(-9999, -9999)
 
 
+var has_tried_mining_stone: bool = false
+
 func handle_mining(delta: float) -> void:
 	var world: Node = get_parent()
 	if not world or not world.has_method("is_mineable"):
 		return
+
+	# Check if they just tried to mine stone
+	if Input.is_action_just_pressed("mine") and not has_tried_mining_stone:
+		var blocks = world.get_node_or_null("Blocks")
+		if blocks:
+			var mouse_world = get_global_mouse_position()
+			var p_tile = blocks.local_to_map(blocks.to_local(global_position))
+			var click_tile = blocks.local_to_map(blocks.to_local(mouse_world))
+			if Vector2(click_tile).distance_to(Vector2(p_tile)) <= mine_reach:
+				if blocks.get_cell_source_id(click_tile) == 3: # STONE
+					show_stone_warning()
 
 	if not Input.is_action_pressed("mine") or _target_tile == Vector2i(-9999, -9999):
 		_mine_timer = 0.0
@@ -235,6 +315,21 @@ func handle_mining(delta: float) -> void:
 		if progress_bar:
 			progress_bar.visible = false
 		world.mine_tile(_target_tile, _mine_direction)
+
+func show_stone_warning() -> void:
+	has_tried_mining_stone = true
+	var lbl = Label.new()
+	lbl.text = "Stone is not breakable!"
+	lbl.add_theme_color_override("font_color", Color(1, 0.4, 0.4, 1))
+	lbl.add_theme_font_size_override("font_size", 14)
+	lbl.position = Vector2(-70, -60)
+	lbl.z_index = 100
+	add_child(lbl)
+	
+	var tween = create_tween()
+	tween.tween_property(lbl, "position:y", -90.0, 3.0)
+	tween.parallel().tween_property(lbl, "modulate:a", 0.0, 3.0)
+	tween.tween_callback(lbl.queue_free)
 
 
 func update_animation() -> void:

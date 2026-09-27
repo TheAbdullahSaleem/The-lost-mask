@@ -10,6 +10,11 @@ func _ready() -> void:
 	# Register the overall layer container to its own group so the world can find it
 	add_to_group("inventory_ui")
 	
+	if Global.has_mask_full:
+		_spawn_mask_slot(load("res://assets/sprites/others/mask.png"))
+	elif Global.has_mask_half:
+		_spawn_mask_slot(load("res://assets/sprites/others/mask_left.png"))
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -81,3 +86,59 @@ func update_health(current: int, maximum: int) -> void:
 			heart_nodes[i].modulate = Color(1, 0.2, 0.2) if is_full_heart else Color(0.3, 0.3, 0.3)
 		else:
 			heart_nodes[i].modulate = Color(1, 1, 1)
+
+var mask_slot: TextureRect
+
+func show_mask_half() -> void:
+	_spawn_mask_slot(load("res://assets/sprites/others/mask_left.png"))
+	_broadcast("Congrats! You have found the half mask!")
+
+func show_mask_full() -> void:
+	_spawn_mask_slot(load("res://assets/sprites/others/mask.png"))
+	_broadcast("Congrats! You have found the full mask!")
+
+var mask_panel: Panel
+
+func _spawn_mask_slot(tex: Texture2D) -> void:
+	if not mask_panel:
+		mask_panel = Panel.new()
+		mask_panel.custom_minimum_size = Vector2(64, 64)
+		mask_panel.size = Vector2(64, 64)
+		
+		# Position in bottom right, with 30px padding from edges
+		mask_panel.position = Vector2(1152 - 64 - 30, 648 - 64 - 30)
+		
+		# Give it a brownish background to match inventory style
+		var style = StyleBoxFlat.new()
+		style.bg_color = Color(0.24, 0.16, 0.12, 0.95)
+		style.set_corner_radius_all(4)
+		mask_panel.add_theme_stylebox_override("panel", style)
+		
+		# Add to the canvas layer directly so it ignores other layouts
+		add_child(mask_panel)
+		
+		mask_slot = TextureRect.new()
+		mask_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		mask_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		# Inner sizing
+		mask_slot.custom_minimum_size = Vector2(50, 50)
+		mask_slot.size = Vector2(50, 50)
+		mask_slot.position = Vector2(7, 7) # Center inside the 64x64 panel
+		
+		mask_panel.add_child(mask_slot)
+	
+	mask_slot.texture = tex
+
+func _broadcast(msg: String) -> void:
+	var lbl = Label.new()
+	lbl.text = msg
+	lbl.add_theme_font_size_override("font_size", 32)
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.position = Vector2(0, 150)
+	lbl.size = Vector2(1152, 50)
+	lbl.add_theme_color_override("font_color", Color(1, 0.8, 0, 1)) # Gold text
+	add_child(lbl)
+	var tw = create_tween()
+	tw.tween_property(lbl, "modulate:a", 0.0, 4.0)
+	tw.tween_callback(lbl.queue_free)

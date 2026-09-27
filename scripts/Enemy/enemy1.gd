@@ -107,6 +107,13 @@ func take_damage(amount: int = 1) -> void:
 	update_health_bar()
 	
 	if current_health <= 0:
+		Global.boss1_defeated = true
+		var mask_scene = load("res://scenes/mask_half.tscn")
+		if mask_scene:
+			var mask_instance = mask_scene.instantiate()
+			mask_instance.global_position = global_position
+			# Add it to the arena root so it doesn't get freed with the boss
+			get_parent().add_child(mask_instance)
 		queue_free() # Defeat boss
 		
 		

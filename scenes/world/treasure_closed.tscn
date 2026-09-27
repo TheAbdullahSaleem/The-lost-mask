@@ -6,3 +6,4 @@
 
 [node name="closed" type="Sprite2D" parent="." unique_id=1557233807]
 texture = ExtResource("1_m2qmq")
+

@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 		interact_label.global_position = global_position + Vector2(offset_x, offset_y)
 		
 func _unhandled_input(event: InputEvent) -> void:
-	if not player_nearby or is_transitioning:
+	if not player_nearby or is_transitioning or Global.boss1_defeated:
 		return
 	
 	if event is InputEventKey and event.keycode == KEY_E and event.pressed and not event.echo:
@@ -66,6 +66,11 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player" or body.name == "Player2":
 		player_nearby = true
 		if not is_transitioning:
+			if Global.boss1_defeated:
+				interact_label.text = "[LOCKED]"
+				interact_label.add_theme_color_override("font_color", Color(1, 0, 0, 1))
+			else:
+				interact_label.text = "[E]"
 			interact_label.visible = true
 
 func _on_body_exited(body: Node2D) -> void:

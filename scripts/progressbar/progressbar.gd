@@ -24,7 +24,23 @@ func _process(delta: float) -> void:
 	var end_y = 3987.0
 	
 	var current_y = player.global_position.y
-	var t = clamp((current_y - start_y) / (end_y - start_y), 0.0, 1.0)
 	
+	# Piecewise mapping to match the hand-drawn UI frames:
+	# Surface (y=48) -> Frame 0
+	# Door 1 (y=1795) -> Frame 6 (Where the yellow icon is drawn)
+	# Door 2 (y=3987) -> Frame 17 (Where the red X is drawn)
+	
+	var frame_calc = 0.0
+	
+	if current_y <= 1795.0:
+		var t = clamp((current_y - 48.0) / (1795.0 - 48.0), 0.0, 1.0)
+		frame_calc = lerp(0.0, 6.0, t)
+	elif current_y <= 3987.0:
+		var t = clamp((current_y - 1795.0) / (3987.0 - 1795.0), 0.0, 1.0)
+		frame_calc = lerp(6.0, 17.0, t)
+	else:
+		var t = clamp((current_y - 3987.0) / 1000.0, 0.0, 1.0) # past door 2
+		frame_calc = lerp(17.0, 19.0, t)
+		
 	var total_frames = hframes * vframes
-	self.frame = int(t * (total_frames - 1))
+	self.frame = clamp(int(frame_calc), 0, total_frames - 1)

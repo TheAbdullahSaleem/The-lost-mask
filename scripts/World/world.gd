@@ -89,6 +89,12 @@ func _ready() -> void:
 		if player:
 			player.mine_time = saved_data["mine_time"]
 			
+			# Refill life when returning
+			if name == "World":
+				player.current_health = player.max_health
+				if player.has_method("sync_health_ui"):
+					player.sync_health_ui()
+			
 	# Fix building in Arena by enforcing the proper World TileSet
 	if get_tree().current_scene.name != "World":
 		var world_scene = load("res://scenes/world/world.tscn")
@@ -99,6 +105,9 @@ func _ready() -> void:
 			if w_blocks and local_blocks:
 				local_blocks.tile_set = w_blocks.tile_set
 			temp.free()
+	elif not Global.world_tile_data.is_empty() and blocks:
+		# Restore broken land in the World
+		blocks.tile_map_data = Global.world_tile_data
 		
 	spawn_inventory()
 
@@ -122,7 +131,10 @@ func _exit_tree() -> void:
 	if player:
 		current_mine_time = player.mine_time
 		
-	Global.save_inventory(inventory, inventory_material, current_mine_time)
+	if Global:
+		Global.save_inventory(inventory, inventory_material, current_mine_time)
+		if name == "World" and blocks:
+			Global.world_tile_data = blocks.tile_map_data
 
 # ── Placing API ───────────────────────────────────────────────────────────────
 func place_block(mouse_global_pos: Vector2) -> void:

@@ -12,7 +12,7 @@ func _ready() -> void:
 
 	# Setup the note label
 	note_label = Label.new()
-	note_label.text = "The treasure is locked"
+	note_label.text = "Find mask to unlock"
 	note_label.visible = false
 	note_label.top_level = true # Ignore parent scale and transform
 	
@@ -35,10 +35,24 @@ func _process(delta: float) -> void:
 		var offset_x = -note_label.size.x / 2.0
 		var offset_y = -60.0
 		note_label.global_position = active_player.global_position + Vector2(offset_x, offset_y)
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if active_player and Global.has_mask_full:
+		if event is InputEventKey and event.keycode == KEY_E and event.pressed and not event.echo:
+			# Open the cage
+			var tw = create_tween()
+			tw.tween_property(self, "modulate:a", 0.0, 1.5)
+			tw.tween_callback(self.queue_free)
+			active_player = null
+			note_label.visible = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player" or body.name == "Player2":
 		active_player = body
+		if Global.has_mask_full:
+			note_label.text = "Press [E] to unlock"
+		else:
+			note_label.text = "Find mask to unlock"
 		note_label.visible = true
 
 func _on_body_exited(body: Node2D) -> void:
