@@ -5,7 +5,7 @@
 
 **The Lost Mask** is a 2D sandbox action-platformer where survival, resource gathering, and intense boss battles collide. Dig deep into the earth to mine resources, craft powerful upgrades, and step through mystical portals to reclaim the scattered halves of an ancient artifact.
 
-### ✨ A Labor of Love
+### A Labor of Love
 **Every single sprite, background, and UI element in this game is 100% uniquely hand-drawn by us!** 
 
 ---
