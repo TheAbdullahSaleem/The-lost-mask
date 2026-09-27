@@ -15,6 +15,10 @@ extends CharacterBody2D
 @onready var pickaxe: Node2D = get_node_or_null("PickaxeIndicator")
 @onready var progress_bar: AnimatedSprite2D = get_node_or_null("MineProgress") as AnimatedSprite2D
 
+@export_category("Health")
+@export var max_health: int = 3
+var current_health: int = 3
+
 var _mine_timer: float = 0.0
 var _mine_direction: String = "down"
 var _current_mine_tile: Vector2i = Vector2i(-9999, -9999)
@@ -23,10 +27,26 @@ var spawn_position: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	current_health = max_health
 	spawn_position = global_position
 	animated_sprite.play("idle")
 	if progress_bar:
 		progress_bar.visible = false
+	
+	# Initial health sync (deferred to ensure UI is ready)
+	call_deferred("sync_health_ui")
+
+func sync_health_ui() -> void:
+	get_tree().call_group("inventory_ui", "update_health", current_health, max_health)
+
+func take_damage(amount: int = 1) -> void:
+	current_health -= amount
+	current_health = clamp(current_health, 0, max_health)
+	sync_health_ui()
+	
+	if current_health <= 0:
+		# Player death logic can go here
+		print("Player died!")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("teleport"):
