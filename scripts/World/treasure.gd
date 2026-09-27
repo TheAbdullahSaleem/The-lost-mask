@@ -14,13 +14,28 @@ func _ready() -> void:
 	label.add_theme_font_size_override("font_size", 12)
 	add_child(label)
 
+func is_cage_present() -> bool:
+	if not is_inside_tree(): return false
+	var cage = get_tree().current_scene.get_node_or_null("crafting table/cage")
+	return is_instance_valid(cage) and cage.modulate.a > 0.1
+
 func _process(delta: float) -> void:
-	if active_player and label.visible:
+	if is_cage_present():
+		label.visible = false
+		return
+		
+	if active_player:
+		label.visible = true
 		var offset_x = -label.size.x / 2.0
 		var offset_y = -40.0
 		label.global_position = global_position + Vector2(offset_x, offset_y)
+	else:
+		label.visible = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_cage_present():
+		return
+		
 	if active_player and label.visible:
 		if event is InputEventKey and event.keycode == KEY_E and event.pressed and not event.echo:
 			label.visible = false

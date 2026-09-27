@@ -1,5 +1,5 @@
 extends CharacterBody2D
-@export var speed = 50.0
+@export var speed = 100.0
 @export var max_health: int = 20
 
 var target :CharacterBody2D = null
@@ -7,6 +7,7 @@ var charging: bool = false
 var started: bool = false
 var current_health: int = 20
 
+@onready var door: Node2D = $"../Door"
 @onready var bossanim: AnimatedSprite2D = $Sprite2D
 @onready var chargeanim: AnimatedSprite2D = $charge
 @onready var Player: CharacterBody2D = $"../Player"
@@ -15,6 +16,7 @@ var current_health: int = 20
 var health_bar_sprite: Sprite2D
 
 func _ready():
+	door.unlocked = false
 	current_health = max_health
 	
 	health_bar_sprite = Sprite2D.new()
@@ -115,5 +117,8 @@ func take_damage(amount: int = 1) -> void:
 			# Add it to the arena root so it doesn't get freed with the boss
 			get_parent().add_child(mask_instance)
 		queue_free() # Defeat boss
+		get_parent().enemy_count -= 1
+		if get_parent().enemy_count <= 0:
+			door.unlocked = true
 		
 		
