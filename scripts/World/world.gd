@@ -86,10 +86,6 @@ func _ready() -> void:
 	if tutorial:
 		var tutorial_instance = tutorial_scene.instantiate()
 		add_child(tutorial_instance)
-	
-	if autobreaking:
-		autobreaking = true
-		add_child(break_timer)
 
 # ── Placing API ───────────────────────────────────────────────────────────────
 func place_block(mouse_global_pos: Vector2) -> void:
@@ -123,6 +119,7 @@ func place_block(mouse_global_pos: Vector2) -> void:
 		# Deduct from inventory
 		change_inventory_item(selected_item_name, -1)
 	if autobreaking:
+		add_child(break_timer)
 		break_timer.start(break_time)
 		await break_timer.timeout
 		mine_tile(tile_coords, "down")
