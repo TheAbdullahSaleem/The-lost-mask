@@ -10,8 +10,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not player or not target: return
-	var current_distance = player.global_position.direction_to(target.global_position)
+	if not player or not target: 
+		print("Player or target not found")
+		return
+	var current_distance = player.global_position.distance_to(target.global_position)
 	var t = remap(current_distance,min_detect_distance,max_detect_distance,1.0,0.0)
 	t = clamp(t,0.0,1.0)
 	var total_frames = hframes * vframes
