@@ -30,20 +30,33 @@ var sfx_dig2 = preload("res://assets/sounds/dig2.mp3")
 var sfx_shot = preload("res://assets/sounds/shot.mp3")
 var sfx_hurt = preload("res://assets/sounds/hurt.mp3")
 var sfx_click = preload("res://assets/sounds/click.mp3")
+var sfx_walk = preload("res://assets/sounds/walk.mp3")
+var sfx_jump = preload("res://assets/sounds/jump.mp3")
 
 var dig_player = AudioStreamPlayer.new()
 var shot_player = AudioStreamPlayer.new()
 var hurt_player = AudioStreamPlayer.new()
 var ui_player = AudioStreamPlayer.new()
+var walk_player = AudioStreamPlayer.new()
+var jump_player = AudioStreamPlayer.new()
 
 func _ready() -> void:
+	# Enable loop on walk sound if it's an MP3 stream
+	if sfx_walk is AudioStreamMP3:
+		sfx_walk.loop = true
+		
 	add_child(dig_player)
 	add_child(shot_player)
 	add_child(hurt_player)
 	add_child(ui_player)
+	add_child(walk_player)
+	add_child(jump_player)
+	
 	shot_player.stream = sfx_shot
 	hurt_player.stream = sfx_hurt
 	ui_player.stream = sfx_click
+	walk_player.stream = sfx_walk
+	jump_player.stream = sfx_jump
 	
 	current_health = max_health
 	spawn_position = global_position
@@ -299,6 +312,7 @@ func apply_gravity(delta: float) -> void:
 func handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
+		jump_player.play()
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= 0.5
 
@@ -307,8 +321,13 @@ func handle_movement(delta: float) -> void:
 	var direction: float = Input.get_axis("left", "right")
 	if direction != 0:
 		velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
+		if is_on_floor() and not walk_player.playing:
+			walk_player.play()
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
+		
+	if (direction == 0 or not is_on_floor()) and walk_player.playing:
+		walk_player.stop()
 
 
 func update_pickaxe() -> void:

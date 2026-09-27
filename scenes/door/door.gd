@@ -32,16 +32,10 @@ func _process(_delta: float) -> void:
 		var offset_x = -interact_label.size.x / 2.0
 		var offset_y = -60.0
 		interact_label.global_position = global_position + Vector2(offset_x, offset_y)
-		
-func is_locked() -> bool:
-	if Global.boss1_defeated and target_scene_path.ends_with("arena1.tscn"):
-		return true
-	if Global.boss2_defeated and target_scene_path.ends_with("arena2.tscn"):
-		return true
-	return false
+
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not player_nearby or is_transitioning or is_locked():
+	if not player_nearby or is_transitioning or not unlocked:
 		return
 	
 	if event is InputEventKey and event.keycode == KEY_E and event.pressed and not event.echo:
@@ -86,7 +80,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if (body.name == "Player" or body.name == "Player2") and unlocked:
 		player_nearby = true
 		if not is_transitioning:
-			if is_locked():
+			if not unlocked:
 				interact_label.text = "[LOCKED]"
 				interact_label.add_theme_color_override("font_color", Color(1, 0, 0, 1))
 			else:

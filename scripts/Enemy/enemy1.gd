@@ -14,7 +14,7 @@ var current_health: int = 20
 @onready var Blocks: TileMapLayer = $"../Blocks"
 
 var health_bar_sprite: Sprite2D
-
+var golem = preload("res://scenes/Boss/Boss1.tscn")
 func _ready():
 	door.unlocked = false
 	current_health = max_health
@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
-		if collider and collider.name == "Player":
+		if collider and collider.name == "Player" and started:
 			if collider.has_method("take_damage"):
 				collider.take_damage(1)
 			if collider.has_method("shake_screen"):
@@ -109,16 +109,34 @@ func take_damage(amount: int = 1) -> void:
 	update_health_bar()
 	
 	if current_health <= 0:
-		Global.boss1_defeated = true
-		var mask_scene = load("res://scenes/mask_half.tscn")
-		if mask_scene:
-			var mask_instance = mask_scene.instantiate()
-			mask_instance.global_position = global_position
-			# Add it to the arena root so it doesn't get freed with the boss
-			get_parent().add_child(mask_instance)
 		queue_free() # Defeat boss
 		get_parent().enemy_count -= 1
 		if get_parent().enemy_count <= 0:
+			if get_tree().current_scene.name == "arena1":
+				Global.boss1_defeated = true
+				var mask_scene = load("res://scenes/mask_half.tscn")
+				if mask_scene:
+					var mask_instance = mask_scene.instantiate()
+					mask_instance.global_position = global_position
+					# Add it to the arena root so it doesn't get freed with the boss
+					get_parent().add_child(mask_instance)
+			else:
+				Global.boss2_defeated = true
+				var mask_scene = load("res://scenes/mask_right.tscn")
+				if mask_scene:
+					var mask_instance = mask_scene.instantiate()
+					mask_instance.global_position = global_position
+					# Add it to the arena root so it doesn't get freed with the boss
+					get_parent().add_child(mask_instance)
 			door.unlocked = true
-		
+		elif get_parent().enemy_count == 2:
+			var golem1 = golem.instantiate()
+			var golem2 = golem.instantiate()
+			golem1.global_position = global_position + Vector2(-30, 0)
+			golem2.global_position = global_position + Vector2(30, 0)
+			golem1.scale *= 0.5
+			golem2.scale *= 0.5
+			get_parent().call_deferred("add_child", golem1)
+			get_parent().call_deferred("add_child", golem2)
+			
 		
